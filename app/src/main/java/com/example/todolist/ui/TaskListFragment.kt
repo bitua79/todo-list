@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.core.DateUtil
 import com.example.todolist.data.model.Priority
@@ -19,7 +20,7 @@ class TaskListFragment : Fragment() {
     private lateinit var binding: FragmentTaskListBinding
     private lateinit var listAdapter: TaskListAdapter
     private lateinit var recyclerView: RecyclerView
-//    private val listViewModel: TaskListViewModel by activityViewModels()
+//    private val viewModel: TaskViewModel by activityViewModels()
 
     @Inject
     lateinit var dateUtil: DateUtil
