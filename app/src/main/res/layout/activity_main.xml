@@ -48,12 +48,12 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/spacing_base"
                     app:defaultNavHost="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/toolbar"
                     app:navGraph="@navigation/nav_graph"
-                    tools:layout="@layout/fragment_blank" />
+                    tools:layout="@layout/fragment_task_list" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

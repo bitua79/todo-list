@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/blankFragment">
+    app:startDestination="@id/taskListFragment">
 
 
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.todolist.ui.BlankFragment"
-        tools:layout="@layout/fragment_blank" />
+        android:id="@+id/taskListFragment"
+        android:name="com.example.todolist.ui.TaskListFragment"
+        tools:layout="@layout/fragment_task_list" />
 </navigation>

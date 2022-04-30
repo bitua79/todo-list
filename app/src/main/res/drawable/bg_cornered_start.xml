@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/color_icon_tint_done_tag"/>
+    <corners android:bottomRightRadius="@dimen/spacing_3x" android:bottomLeftRadius="0dp"
+        android:topLeftRadius="0dp" android:topRightRadius="@dimen/spacing_3x"/>
+</shape>
