@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="color_primary">@color/deep_purple_500</color>
+    <color name="color_primary_variant">@color/deep_purple_400</color>
+    <color name="color_secondary">@color/green_a200</color>
+    <color name="color_secondary_variant">@color/teal_a400</color>
+    <color name="color_background">@color/grey_100</color>
+    <color name="color_surface">@color/white</color>
+    <color name="color_error">@color/pink_800</color>
+
+    <!--  On colors  -->
+    <color name="color_on_primary">@color/white</color>
+    <color name="color_on_secondary">@color/white</color>
+    <color name="color_on_background">@color/black</color>
+    <color name="color_on_surface">@color/black</color>
+    <color name="color_on_error">@color/white</color>
+
+
+
+
+    <!--  priority color  -->
+    <color name="color_tag_text">@color/black</color>
+
+    <color name="color_priority_high">@color/pink_800</color>
+    <color name="color_priority_medium">@color/orange_a200</color>
+    <color name="color_priority_low">@color/color_secondary</color>
+
+    <!--  tag colors  -->
+    <color name="color_bg_tag">@color/grey_100_2</color>
+    <color name="color_icon_tint_deadline_tag">@color/orange_a200</color>
+    <color name="color_icon_tint_edit_tag">@color/light_blue_600</color>
+    <color name="color_icon_tint_done_tag">@color/teal_a400</color>
+
+    <color name="color_edit_text_box_border">@color/grey_400</color>
+    <color name="color_edit_text_box_background">@color/white</color>
+
 </resources>

@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Task Manager</string>
+
+    <string name="label_night_mode">dark/light</string>
+    <string name="label_language">persian/english</string>
+    <string name="label_search">search</string>
+
+    <string name="title_task_name">task name:</string>
+    <string name="title_deadline">deadline:</string>
+    <string name="title_remain_time">remain time:</string>
+    <string name="title_priority">priority:</string>
+
+    <string name="label_confirm">confirm</string>
+    <string name="label_escape">escape</string>
+    <string name="label_today">today</string>
+    <string name="label_select">select</string>
+
+    <string name="label_add">add</string>
+    <string name="label_invoke_edit">invoke edition</string>
+    <string name="label_edit_task">Edit task</string>
+    <string name="label_done">Done</string>
+
+    <string name="label_high_priority">high priority</string>
+    <string name="label_medium_priority">medium priority</string>
+    <string name="label_low_priority">low priority</string>
+
+    <string name="msg_done">Are you sure ? :/</string>
+    <string name="msg_confirm_done">Yes</string>
+    <string name="msg_reject_done">No</string>
+
+    <string name="label_action_open_drawer">Open</string>
+    <string name="label_action_close">Close</string>
+
+    <string name="remain_time_day">%s day and %s hour</string>
+    <string name="remain_time_hour">%s hour and %s minute</string>
+    <string name="deadline_is_passed">deadline is passed</string>
+
+    <string name="msg_required">this field can\'t be empty</string>
+    <string name="label_essential">essential</string>
+    <string name="label_important">important</string>
+    <string name="label_daily">daily</string>
+
+</resources>

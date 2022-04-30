@@ -1,3 +1,44 @@
 <resources>
-    <string name="app_name">TodoList</string>
+    <string name="app_name">مدیریت تسک ها</string>
+
+    <string name="label_night_mode">تم روز / شب</string>
+    <string name="label_language">فارسی / انگلیسی</string>
+    <string name="label_search">جستجو</string>
+
+    <string name="title_task_name">نام تسک:</string>
+    <string name="title_deadline">تاریخ تحویل:</string>
+    <string name="title_remain_time">زمان باقی مانده:</string>
+    <string name="title_priority">اولویت:</string>
+
+    <string name="label_confirm">تایید</string>
+    <string name="label_escape">لغو</string>
+    <string name="label_today">امروز</string>
+    <string name="label_select">انتخاب کنید</string>
+
+    <string name="label_add">اضافه کردن</string>
+    <string name="label_edit_task">ویرایش تسک</string>
+    <string name="label_invoke_edit">اعمال ویرایش</string>
+    <string name="label_done">انجام شد</string>
+
+    <string name="label_high_priority">اولویت بالا</string>
+    <string name="label_medium_priority">اولویت متوسط</string>
+    <string name="label_low_priority">اولویت پایین</string>
+
+    <string name="msg_done">آیا مطمئن هستید؟</string>
+    <string name="msg_confirm_done">بله</string>
+    <string name="msg_reject_done">خیر</string>
+
+    <string name="label_action_open_drawer">Open</string>
+    <string name="label_action_close">Close</string>
+
+    <string name="remain_time_day">%s روز و %s ساعت</string>
+    <string name="remain_time_hour">%s ساعت و %s دقیقه</string>
+    <string name="deadline_is_passed">مهلت تمام شده است</string>
+
+    <string name="msg_required">این فیلد نمی تواند خالی باشد</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="label_essential">ضروری</string>
+    <string name="label_important">مهم</string>
+    <string name="label_daily">روزمره</string>
 </resources>

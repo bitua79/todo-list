@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_background">@color/grey_900</color>
+    <color name="color_surface">@color/grey_850</color>
+
+    <!--  On colors  -->
+    <color name="color_on_primary">@color/white</color>
+    <color name="color_on_secondary">@color/white</color>
+    <color name="color_on_background">@color/white</color>
+    <color name="color_on_surface">@color/white</color>
+    <color name="color_on_error">@color/white</color>
+
+
+
+    <!--  priority color  -->
+    <color name="color_priority_high">@color/pink_800</color>
+    <color name="color_priority_medium">@color/orange_a200</color>
+    <color name="color_priority_low">@color/color_secondary</color>
+
+    <!--  tag colors  -->
+    <color name="color_bg_tag">@color/grey_800</color>
+    <color name="color_icon_tint_deadline_tag">@color/orange_a200</color>
+    <color name="color_icon_tint_edit_tag">@color/light_blue_600</color>
+    <color name="color_icon_tint_done_tag">@color/teal_a400</color>
+
+    <color name="color_edit_text_box_border">@color/blue_grey_900</color>
+    <color name="color_edit_text_box_background">@color/blue_grey_900_alpha_23</color>
+
+</resources>
