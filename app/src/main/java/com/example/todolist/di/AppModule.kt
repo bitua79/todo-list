@@ -2,6 +2,7 @@ package com.example.todolist.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.todolist.core.AppDatabase
 import com.example.todolist.appinitializer.AppPreferencesImpl
 import com.example.todolist.core.settings.AppPreferences
 import dagger.Binds
@@ -20,6 +21,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ): AppDatabase = AppDatabase.getInstance(context)
 
     @Provides
     fun providePersianDate() = PersianDate()
