@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val topLevelMenuItems = setOf(
-        R.id.blankFragment
+        R.id.taskListFragment
     )
 
     override fun attachBaseContext(newBase: Context) {

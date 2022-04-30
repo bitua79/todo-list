@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="task"
+            type="com.example.todolist.data.model.Task" />
+    </data>
+
+    <com.zerobranch.layout.SwipeLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:draggedItem="@id/main"
+        app:leftItem="@id/right_view"
+        app:rightItem="@id/right_view"
+        app:swipeDirection="right | left">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/right_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/spacing_2x"
+                android:layout_marginBottom="@dimen/spacing_2x"
+                android:background="@drawable/bg_cornered_end"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/gl_end">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/spacing_5x"
+                    android:src="@drawable/ic_edit"
+                    android:tint="@color/white" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/left_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/spacing_2x"
+                android:layout_marginBottom="@dimen/spacing_2x"
+                android:background="@drawable/bg_cornered_start"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="@id/gl_start"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/spacing_5x"
+                    android:src="@drawable/ic_check_mark"
+                    android:tint="@color/white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_2x"
+            android:elevation="@dimen/spacing_base"
+            tools:ignore="RtlSymmetry"
+            tools:targetApi="m">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/view_divider"
+                    android:layout_width="@dimen/spacing_half_base"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/spacing_base"
+                    android:layout_marginStart="@dimen/spacing_2x"
+                    android:background="@color/color_secondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_task_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_4x"
+                    android:layout_marginStart="@dimen/spacing_4x"
+                    android:gravity="start"
+                    android:text="@{task.name}"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
+                    android:textColor="@color/color_on_surface"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="پروژه هوش " />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/spacing_base"
+                    android:drawableTint="@color/material_on_background_disabled"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Caption"
+                    android:textColor="@color/material_on_background_disabled"
+                    app:layout_constraintStart_toStartOf="@id/tv_task_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_task_name"
+                    tools:text="1400/12/25" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_priority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12x"
+                    android:drawableStart="@drawable/ic_priority"
+                    android:drawablePadding="@dimen/spacing_base"
+                    android:drawableTint="@color/material_on_background_disabled"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Caption"
+                    android:textColor="@color/material_on_background_disabled"
+                    app:getStringRes="@{task.priority.title}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_deadline"
+                    app:layout_constraintStart_toEndOf="@id/tv_deadline"
+                    app:layout_constraintTop_toTopOf="@id/tv_deadline"
+                    tools:text="@string/label_high_priority" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4x"
+                    android:layout_marginTop="@dimen/spacing_3x"
+                    android:layout_marginBottom="@dimen/spacing_2x"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deadline">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_remain_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/spacing_base"
+                        android:layout_weight="0.3"
+                        android:background="@color/color_bg_tag"
+                        android:drawableStart="@drawable/ic_error"
+                        android:drawableTint="@color/color_icon_tint_deadline_tag"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingHorizontal="@dimen/spacing_base"
+                        android:paddingStart="@dimen/spacing_base"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Caption"
+                        android:textColor="@color/color_on_surface"
+                        app:autoSizeMaxTextSize="12sp"
+                        app:autoSizeMinTextSize="5sp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="2 روز و 2 ساعت" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/spacing_base"
+                        android:layout_weight="0.3"
+                        android:background="@color/color_bg_tag"
+                        android:drawableStart="@drawable/ic_edit"
+                        android:drawableTint="@color/color_icon_tint_edit_tag"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/spacing_base"
+                        android:text="@string/label_edit_task"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Caption"
+                        android:textColor="@color/color_on_surface" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/spacing_base"
+                        android:layout_marginEnd="@dimen/spacing_3x"
+                        android:layout_weight="0.3"
+                        android:background="@color/color_bg_tag"
+                        android:drawableStart="@drawable/ic_check_mark"
+                        android:drawableTint="@color/color_icon_tint_done_tag"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/spacing_base"
+                        android:text="@string/label_done"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Caption"
+                        android:textColor="@color/color_on_surface" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </com.zerobranch.layout.SwipeLayout>
+</layout>

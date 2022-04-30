@@ -60,7 +60,7 @@
         <item name="cornerFamily">rounded</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.TaskManager.TextWidget" parent="">
+    <style name="ShapeAppearanceOverlay.TodoList.TextWidget" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/radius_big</item>
     </style>
