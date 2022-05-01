@@ -1,8 +1,10 @@
 package com.example.todolist.ui
 
-import com.example.todolist.BR
+import android.os.Bundle
+import android.view.View
 import com.example.todolist.data.model.Priority
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
-class TaskListFragment : TaskListFragmentDelegate(Priority.High, true)
+class EssentialTaskListFragment : TaskListFragmentDelegate(priority = Priority.High, false)

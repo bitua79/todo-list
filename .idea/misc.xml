@@ -12,13 +12,17 @@
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/drawable/ic_error.xml" value="0.1" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/drawable/ic_language.xml" value="0.1" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/drawable/ic_search.xml" value="0.238" />
-        <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/fragment_blank.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/fragment_daily_task_list.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/fragment_essential_task_list.xml" value="0.3435897435897436" />
+        <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/fragment_important_task_list.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/fragment_task_list.xml" value="0.3491401771756123" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/item_task.xml" value="0.34074074074074073" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/item_task_swipe.xml" value="0.34074074074074073" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/layout_header_drawer.xml" value="0.3484375" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/layout/layout_switch.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/menu/menu_bottom_navigation_view.xml" value="0.3484375" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/menu/menu_drawer.xml" value="0.3484375" />
         <entry key="..\:/Users/bita.karvizi/Documents/Android/MyProjects/TodoList/app/src/main/res/menu/menu_toolbar.xml" value="0.3489583333333333" />

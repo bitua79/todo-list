@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/dailyTaskListFragment"
+        android:icon = "@drawable/ic_danger"
+        android:title = "@string/label_daily" />
+
+    <item android:id="@+id/importantTaskListFragment"
+        android:icon = "@drawable/ic_danger"
+        android:title = "@string/label_important" />
+
+    <item
+        android:id="@+id/taskListFragment"
+        android:enabled="false"
+        android:title="" />
+
+    <item android:id="@+id/essentialTaskListFragment"
+        android:icon = "@drawable/ic_danger"
+        android:title = "@string/label_essential" />
+
+    <item android:id="@+id/doneTaskListFragment"
+        android:icon = "@drawable/ic_check_mark"
+        android:title = "@string/label_done" />
+</menu>
