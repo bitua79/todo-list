@@ -11,14 +11,15 @@ import com.example.todolist.core.DateUtil
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.databinding.FragmentTaskListBinding
+import com.example.todolist.util.getListByPriority
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-open class TaskListFragmentDelegate(
-    private val priority: Priority ,
+abstract class TaskListFragmentDelegate(
+    private val priority: Priority?,
     private val isMainList: Boolean
-): Fragment(){
+) : Fragment() {
     lateinit var binding: FragmentTaskListBinding
     private lateinit var listAdapter: TaskListAdapter
     private lateinit var recyclerView: RecyclerView
@@ -70,52 +71,24 @@ open class TaskListFragmentDelegate(
     }
 
     private fun observeData() {
-
-        //Fake data
-        listAdapter.submitList(
-            listOf(
-                Task(
-                    name = "task1",
-                    deadLine = 122456778L,
-                    isDone = false,
-                    priority = priority
-                ),
-                Task(
-                    name = "task1",
-                    deadLine = 122456778L,
-                    isDone = false,
-                    priority = priority
-                ),
-                Task(
-                    name = "task1",
-                    deadLine = 122456778L,
-                    isDone = false,
-                    priority = priority
-                ),
-                Task(
-                    name = "task1",
-                    deadLine = 122456778L,
-                    isDone = false,
-                    priority = priority
-                ),
-                Task(
-                    name = "task1",
-                    deadLine = 122456778L,
-                    isDone = false,
-                    priority = priority
-                )
-            )
-        )
+        viewModel.allTasks.observe(viewLifecycleOwner) {
+            listAdapter.submitList(it.getListByPriority(priority))
+        }
     }
 
-    private fun addTask() {
+    abstract fun addTask()
 
-    }
+    abstract fun editTask(item: Task)
 
     private fun doneTask(item: Task) {
-    }
-
-    private fun editTask(item: Task) {
-
+        val newItem = Task(
+            name = item.name,
+            deadLine = item.deadLine,
+            remainTime = item.remainTime,
+            priority = Priority.Done,
+            isDone = item.isDone
+        )
+        viewModel.removeTaskFromList(item)
+        viewModel.addTaskToList(newItem)
     }
 }

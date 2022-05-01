@@ -3,19 +3,17 @@ package com.example.todolist.ui
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -23,6 +21,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.todolist.R
 import com.example.todolist.core.extensions.collectOnActivity
+import com.example.todolist.core.extensions.gone
+import com.example.todolist.core.extensions.visible
 import com.example.todolist.core.settings.AppPreferences
 import com.example.todolist.core.settings.Language
 import com.example.todolist.core.settings.LocaleHelper
@@ -49,7 +49,9 @@ class MainActivity : AppCompatActivity() {
     private val topLevelMenuItems = setOf(
         R.id.essentialTaskListFragment,
         R.id.importantTaskListFragment,
-        R.id.dailyTaskListFragment
+        R.id.dailyTaskListFragment,
+        R.id.doneTaskListFragment,
+        R.id.taskListFragment
     )
 
     override fun attachBaseContext(newBase: Context) {
@@ -97,7 +99,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
-        return super.onCreateOptionsMenu(menu)    }
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -140,7 +143,13 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                //TODO: implement when all pages are added
+                R.id.taskListFragment, R.id.doneTaskListFragment, R.id.dailyTaskListFragment, R.id.importantTaskListFragment, R.id.essentialTaskListFragment -> setUiState(
+                    MainPageUiState.MAIN_FRAGMENT_CONTROLS_STATE
+                )
+
+                R.id.taskFragment -> setUiState(
+                    MainPageUiState.DETAIL_FRAGMENT_CONTROLS_STATE
+                )
             }
         }
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -152,16 +161,25 @@ class MainActivity : AppCompatActivity() {
             MainPageUiState.MAIN_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    bottomAppBar.visible()
+                    fabHome.visible()
+                    viewHelper.visible()
                 }
             }
             MainPageUiState.FEATURE_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    bottomAppBar.gone()
+                    fabHome.gone()
+                    viewHelper.gone()
                 }
             }
             MainPageUiState.DETAIL_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    bottomAppBar.gone()
+                    fabHome.gone()
+                    viewHelper.gone()
                 }
             }
         }
@@ -179,17 +197,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean { // setup appBarConfiguration for back arrow
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
-
-//    private fun setupDrawerLayout() {
-//        drawerToggle = ActionBarDrawerToggle(
-//            this,
-//            binding.drawerLayout,
-//            binding.toolbar,
-//            R.string.label_action_open_drawer,
-//            R.string.label_action_close
-//        )
-//        binding.drawerLayout.addDrawerListener(drawerToggle)
-//    }
 
     private fun subscribeViewModel() {
 

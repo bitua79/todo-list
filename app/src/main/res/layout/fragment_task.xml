@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="task"
+            type="com.example.todolist.data.model.Task" />
+
+        <variable
+            name="isEdit"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/cl_add"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4x"
+                    android:layout_marginTop="@dimen/spacing_4x"
+                    android:text="@string/title_task_name"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_name"
+                    style="@style/Widget.ToDoList.TextInputLayout.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="@dimen/spacing_4x"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_title"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_name"
+                        android:enabled="@{!isEdit}"
+                        android:focusable="@{!isEdit}"
+                        app:setNullableText="@{task.name}"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
+                        style="@style/TextAppearance.ToDoList.OutlinedButton.DropDown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="start|center_vertical"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_date_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4x"
+                    android:layout_marginTop="@dimen/spacing_5x"
+                    android:text="@string/title_deadline"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_name" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_date_picker"
+                    style="@style/Widget.ToDoList.TextInputLayout.DropDown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2x"
+                    app:endIconDrawable="@drawable/ic_calendar_big"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="@dimen/spacing_4x"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date_title">
+
+                    <com.example.todolist.core.MyAutoCompleteTextView
+                        android:id="@+id/tv_date_picker"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
+                        style="@style/Widget.Office.AutoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_select" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_time_picker"
+                    style="@style/Widget.ToDoList.TextInputLayout.DropDown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2x"
+                    app:endIconDrawable="@drawable/ic_clock"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="@dimen/spacing_4x"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_date_picker">
+
+                    <com.example.todolist.core.MyAutoCompleteTextView
+                        android:id="@+id/tv_time_picker"
+                        style="@style/Widget.Office.AutoCompleteTextView"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_select" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_priority_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4x"
+                    android:layout_marginTop="@dimen/spacing_5x"
+                    android:text="@string/title_priority"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_time_picker" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_priority"
+                    style="@style/Widget.ToDoList.TextInputLayout.DropDown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2x"
+                    android:layout_marginHorizontal="@dimen/spacing_4x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_priority_title"
+                    tools:visibility="visible">
+
+                    <com.example.todolist.core.MyAutoCompleteTextView
+                        android:id="@+id/tv_priority"
+                        app:setNullableText="@{task.priority.title}"
+                        android:enabled="@{!isEdit}"
+                        android:focusable="@{!isEdit}"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
+                        style="@style/TextAppearance.ToDoList.OutlinedButton.DropDown"
+                        android:layout_width="match_parent"
+                        android:hint="@string/label_select"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn"
+                style="@style/Widget.ToDoList.Button.PrimaryVariant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_4x"
+                android:layout_marginVertical="@dimen/spacing_4x"
+                android:text="@{isEdit? @string/label_invoke_edit : @string/label_add}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
