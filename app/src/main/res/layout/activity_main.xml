@@ -18,44 +18,83 @@
             android:background="?android:colorBackground"
             tools:openDrawer="start">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:text="@string/app_name"
-                    android:id="@+id/toolbar"
-                    app:menu="@menu/menu_toolbar"
-                    style="@style/Widget.MyTheme.Toolbar"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/toolbar"
+                        style="@style/Widget.MyTheme.Toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:menu="@menu/menu_toolbar"
+                        app:title="@string/app_name" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/navHostFragment"
+                        android:name="androidx.navigation.fragment.NavHostFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/spacing_base"
+                        app:defaultNavHost="true"
+                        app:layout_constraintBottom_toTopOf="@id/view_helper"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/toolbar"
+                        app:navGraph="@navigation/nav_graph"
+                        tools:layout="@layout/fragment_task_list" />
+
+                    <View
+                        android:id="@+id/view_helper"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottom_app_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:title="@string/app_name" />
+                    android:layout_gravity="bottom"
+                    app:contentInsetStart="0dp"
+                    app:fabCradleMargin="@dimen/spacing_2x"
+                    app:fabCradleRoundedCornerRadius="@dimen/spacing_4x">
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation_view"
-                    android:layout_width="match_parent"
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom_navigation_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_4x"
+                        android:background="@android:color/transparent"
+                        app:elevation="0dp"
+                        app:labelVisibilityMode="labeled"
+                        app:menu="@menu/menu_bottom_navigation" />
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_home"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:menu="@menu/menu_bottom_navigation_view" />
+                    app:fabCustomSize="@dimen/spacing_16x"
+                    app:layout_anchor="@+id/bottom_app_bar"
+                    app:layout_anchorGravity="top|center"
+                    app:maxImageSize="@dimen/spacing_16x"
+                    app:srcCompat="@drawable/ic_error"
+                    tools:ignore="ContentDescription" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/navHostFragment"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/spacing_base"
-                    app:defaultNavHost="true"
-                    app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
-                    app:navGraph="@navigation/nav_graph"
-                    tools:layout="@layout/fragment_task_list" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.navigation.NavigationView
                 android:id="@+id/navigation_view"

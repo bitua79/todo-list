@@ -5,9 +5,35 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/taskListFragment">
 
+    <action
+        android:id="@+id/action_popup_to_mainFragment"
+        app:popUpTo="@id/taskListFragment" />
+
+    <fragment
+        android:id="@+id/dailyTaskListFragment"
+        android:name="com.example.todolist.ui.DailyTaskListFragment"
+        tools:layout="@layout/fragment_task_list" />
+
+    <fragment
+        android:id="@+id/essentialTaskListFragment"
+        android:name="com.example.todolist.ui.EssentialTaskListFragment"
+        tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.example.todolist.ui.TaskListFragment"
+        android:label="TaskListFragment"
         tools:layout="@layout/fragment_task_list" />
+
+    <fragment
+        android:id="@+id/importantTaskListFragment"
+        android:name="com.example.todolist.ui.ImportantTaskListFragment"
+        tools:layout="@layout/fragment_task_list" />
+
+    <fragment
+        android:id="@+id/doneTaskListFragment"
+        tools:layout="@layout/fragment_task_list"
+        android:name="com.example.todolist.ui.DoneTaskListFragment"
+        android:label="DoneTaskListFragment" />
+
 </navigation>

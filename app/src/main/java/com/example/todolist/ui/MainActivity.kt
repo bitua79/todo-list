@@ -5,6 +5,9 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -43,7 +47,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val topLevelMenuItems = setOf(
-        R.id.taskListFragment
+        R.id.essentialTaskListFragment,
+        R.id.importantTaskListFragment,
+        R.id.dailyTaskListFragment
     )
 
     override fun attachBaseContext(newBase: Context) {
@@ -80,6 +86,26 @@ class MainActivity : AppCompatActivity() {
         switchLanguage.setOnClickListener {
             changeLanguage()
         }
+
+        binding.fabHome.setOnClickListener {
+            navController.navigate(R.id.action_popup_to_mainFragment)
+
+            // deselect bottom nav items
+            binding.bottomNavigationView.menu.getItem(2).isChecked = true
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return super.onCreateOptionsMenu(menu)    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_search -> {
+                Toast.makeText(this, "coming soon...", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun changeLanguage() {

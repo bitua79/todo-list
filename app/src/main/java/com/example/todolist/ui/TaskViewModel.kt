@@ -14,5 +14,4 @@ class TaskViewModel @Inject constructor(
     private val query: MutableLiveData<String> = MutableLiveData()
 
     val allTasks = liveData { emitSource(getTasks()) }
-
 }
