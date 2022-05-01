@@ -66,6 +66,9 @@ class TaskListAdapter(
                     Priority.Low -> {
                         R.color.color_priority_low
                     }
+                    Priority.Done -> {
+                        R.color.color_primary
+                    }
                 }
                 viewDivider.setBackgroundColor(
                     ContextCompat.getColor(
