@@ -12,6 +12,10 @@ class TaskRepository @Inject constructor(
 ) {
     fun getAllTasks() = taskDao.getAllTasks()
 
+    fun getTasksByQuery(query: String): LiveData<List<Task>> {
+        return taskDao.getTasksBQuery(query)
+    }
+
     fun deleteTask(task: Task) = taskDao.delete(task)
 
     fun addTask(task: Task) = taskDao.add(task)

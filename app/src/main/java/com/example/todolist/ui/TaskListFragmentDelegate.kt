@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.core.DateUtil
 import com.example.todolist.data.model.Priority
@@ -76,9 +77,13 @@ abstract class TaskListFragmentDelegate(
         }
     }
 
-    abstract fun addTask()
+    private fun addTask(){
+        findNavController().navigate(TaskListFragmentDirections.actionToTaskFragment(null))
+    }
 
-    abstract fun editTask(item: Task)
+    private fun editTask(item: Task){
+        findNavController().navigate(TaskListFragmentDirections.actionToTaskFragment(item))
+    }
 
     private fun doneTask(item: Task) {
         val newItem = Task(
