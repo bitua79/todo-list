@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_search -> {
-                Toast.makeText(this, "coming soon...", Toast.LENGTH_SHORT).show()
+                navController.navigate(TaskListFragmentDirections.actionToSearchFragment())
             }
         }
         return super.onOptionsItemSelected(item)

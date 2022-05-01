@@ -15,6 +15,9 @@ interface TaskDao {
     @Query("UPDATE tbl_tasks SET deadLine= :deadlineS WHERE name=:name")
     fun edit(name: String, deadlineS: Long)
 
+    @Query("SELECT * FROM tbl_tasks WHERE name LIKE '%' || :query || '%'")
+    fun getTasksBQuery(query: String): LiveData<List<Task>>
+
     @Query("SELECT * FROM tbl_tasks")
     fun getAllTasks(): LiveData<List<Task>>
 }
