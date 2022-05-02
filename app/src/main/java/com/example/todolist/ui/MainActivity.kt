@@ -23,6 +23,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.todolist.R
 import com.example.todolist.core.extensions.collectOnActivity
 import com.example.todolist.core.extensions.gone
+import com.example.todolist.core.extensions.invisible
 import com.example.todolist.core.extensions.visible
 import com.example.todolist.core.settings.AppPreferences
 import com.example.todolist.core.settings.Language
@@ -36,7 +37,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
 
     private lateinit var switchTheme: SwitchMaterial
@@ -90,12 +91,6 @@ class MainActivity : AppCompatActivity() {
             changeLanguage()
         }
 
-        binding.fabHome.setOnClickListener {
-            navController.navigate(R.id.action_popup_to_mainFragment)
-
-            // deselect bottom nav items
-            binding.bottomNavigationView.menu.getItem(2).isChecked = true
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -162,26 +157,27 @@ class MainActivity : AppCompatActivity() {
             MainPageUiState.MAIN_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                    bottomAppBar.visible()
-                    fabHome.visible()
                     viewHelper.visible()
+                    fabHome.alpha = 1F
+                    fabHome.isEnabled = true
+                    bottomAppBar.visible()
                 }
             }
             MainPageUiState.FEATURE_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottomAppBar.gone()
-                    fabHome.gone()
-                    viewHelper.gone()
-                }
+                    bottomAppBar.invisible()
+                    viewHelper.invisible()
+                    fabHome.alpha = 0F
+                    fabHome.isEnabled = false                }
             }
             MainPageUiState.DETAIL_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottomAppBar.gone()
-                    fabHome.gone()
-                    viewHelper.gone()
-                }
+                    bottomAppBar.invisible()
+                    viewHelper.invisible()
+                    fabHome.alpha = 0F
+                    fabHome.isEnabled = false                }
             }
         }
     }

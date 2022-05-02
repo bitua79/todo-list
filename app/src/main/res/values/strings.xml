@@ -23,6 +23,7 @@
     <string name="label_high_priority">اولویت بالا</string>
     <string name="label_medium_priority">اولویت متوسط</string>
     <string name="label_low_priority">اولویت پایین</string>
+    <string name="label_is_done">انجام شده</string>
 
     <string name="msg_done">آیا مطمئن هستید؟</string>
     <string name="msg_confirm_done">بله</string>

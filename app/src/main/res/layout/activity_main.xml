@@ -90,11 +90,10 @@
                     app:fabCustomSize="@dimen/spacing_16x"
                     app:layout_anchor="@+id/bottom_app_bar"
                     app:layout_anchorGravity="top|center"
-                    app:maxImageSize="@dimen/spacing_16x"
-                    app:srcCompat="@drawable/ic_error"
+                    app:maxImageSize="@dimen/spacing_10x"
+                    app:srcCompat="@drawable/ic_add"
                     tools:ignore="ContentDescription" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
             <com.google.android.material.navigation.NavigationView
                 android:id="@+id/navigation_view"

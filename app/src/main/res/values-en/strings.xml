@@ -23,6 +23,7 @@
     <string name="label_high_priority">high priority</string>
     <string name="label_medium_priority">medium priority</string>
     <string name="label_low_priority">low priority</string>
+    <string name="label_is_done">is done</string>
 
     <string name="msg_done">Are you sure ? :/</string>
     <string name="msg_confirm_done">Yes</string>
