@@ -1,23 +1,16 @@
 package com.example.todolist.data.repo
 
 import androidx.lifecycle.LiveData
-import com.example.todolist.data.local.TaskDao
 import com.example.todolist.data.model.Task
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TaskRepository @Inject constructor(
-    private val taskDao: TaskDao
-) {
-    fun getAllTasks() = taskDao.getAllTasks()
+interface TaskRepository {
+    fun getAllTasks(): LiveData<List<Task>>
 
-    fun getTasksByQuery(query: String): LiveData<List<Task>> {
-        return taskDao.getTasksBQuery(query)
-    }
+    fun getTasksByQuery(query: String): LiveData<List<Task>>
 
-    fun deleteTask(task: Task) = taskDao.delete(task)
+    fun deleteTask(task: Task)
 
-    fun addTask(task: Task) = taskDao.add(task)
+    fun addTask(task: Task)
 
-    fun editTask(task: Task) = taskDao.edit(task.name, task.deadLine)}
+    fun editTask(task: Task)
+}
