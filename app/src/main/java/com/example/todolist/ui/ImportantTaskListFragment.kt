@@ -6,4 +6,4 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class ImportantTaskListFragment : TaskListFragmentDelegate(priority = Priority.Medium, TaskType.Important)
+class ImportantTaskListFragment : BaseTaskListFragment(priority = Priority.Medium, TaskType.Important)

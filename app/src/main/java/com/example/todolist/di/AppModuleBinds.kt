@@ -14,6 +14,4 @@ abstract class AppModuleBinds {
     @Binds
     @IntoSet
     abstract fun providePreferencesInitializer(bind: PreferencesInitializer): AppInitializer
-
-
 }

@@ -49,6 +49,7 @@ class TaskListAdapter(
                             visible()
                             playAnimation()
                             delay(duration)
+                            gone()
                         }
                         onItemDone(getItem(position))
                     }
@@ -76,7 +77,6 @@ class TaskListAdapter(
                     ivIcon.setImageResource(R.drawable.ic_tick)
                     ivIcon.alpha = 1F
                     swipeLayout.isEnabledSwipe = false
-                    lottieDoneLoad.gone()
                 }
                 swipeLayout.setOnActionsListener(object : SwipeLayout.SwipeActionsListener {
                     override fun onOpen(direction: Int, isContinuous: Boolean) {

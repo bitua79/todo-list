@@ -45,7 +45,6 @@ object AppModule {
         abstract fun providePreferences(bind: AppPreferencesImpl): AppPreferences
     }
 
-
     @InstallIn(SingletonComponent::class)
     @Module
     internal object SettingsModule {
