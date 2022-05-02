@@ -15,12 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:draggedItem="@id/main"
-        app:leftItem="@id/right_view"
-        app:rightItem="@id/right_view"
+        app:leftItem="@id/cl_done_view"
+        app:rightItem="@id/cl_edit_view"
         app:swipeDirection="right | left">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layoutDirection="rtl"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
@@ -38,7 +39,7 @@
                 app:layout_constraintGuide_percent="0.7" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/right_view"
+                android:id="@+id/cl_edit_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
@@ -59,7 +60,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/left_view"
+                android:id="@+id/cl_done_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
@@ -93,16 +94,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <View
-                    android:id="@+id/view_divider"
-                    android:layout_width="@dimen/spacing_half_base"
-                    android:layout_height="0dp"
-                    android:layout_marginVertical="@dimen/spacing_base"
-                    android:layout_marginStart="@dimen/spacing_2x"
-                    android:background="@color/color_secondary"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:alpha="0.5"
+                    android:src="@drawable/ic_circle"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/spacing_11x"
+                    android:layout_margin="@dimen/spacing_3x"
+                    app:layout_constraintDimensionRatio="1"
+                    android:layout_height="0dp"/>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_done_load"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@id/iv_icon"
+                    app:layout_constraintEnd_toEndOf="@id/iv_icon"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+                    android:layout_width="0dp"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/done"
+                    android:layout_height="0dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_task_name"
@@ -114,7 +128,7 @@
                     android:text="@{task.name}"
                     android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
                     android:textColor="@color/color_on_surface"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_icon"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="پروژه هوش " />
 
@@ -148,73 +162,32 @@
                     app:layout_constraintTop_toTopOf="@id/tv_deadline"
                     tools:text="@string/label_high_priority" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_4x"
-                    android:layout_marginTop="@dimen/spacing_3x"
-                    android:layout_marginBottom="@dimen/spacing_2x"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_remain_time"
+                    app:layout_constraintStart_toStartOf="@id/tv_task_name"
+                    android:layout_marginEnd="@dimen/spacing_3x"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deadline"
+
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginVertical="@dimen/spacing_3x"
+                    android:layout_width="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_deadline">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_remain_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/spacing_base"
-                        android:layout_weight="0.3"
-                        android:background="@color/color_bg_tag"
-                        android:drawableStart="@drawable/ic_error"
-                        android:drawableTint="@color/color_icon_tint_deadline_tag"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:paddingHorizontal="@dimen/spacing_base"
-                        android:paddingStart="@dimen/spacing_base"
-                        android:textAppearance="@style/TextAppearance.MyTheme.Caption"
-                        android:textColor="@color/color_on_surface"
-                        app:autoSizeMaxTextSize="12sp"
-                        app:autoSizeMinTextSize="5sp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="2 روز و 2 ساعت" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/spacing_base"
-                        android:layout_weight="0.3"
-                        android:background="@color/color_bg_tag"
-                        android:drawableStart="@drawable/ic_edit"
-                        android:drawableTint="@color/color_icon_tint_edit_tag"
-                        android:gravity="center"
-                        android:paddingStart="@dimen/spacing_base"
-                        android:text="@string/label_edit_task"
-                        android:textAppearance="@style/TextAppearance.MyTheme.Caption"
-                        android:textColor="@color/color_on_surface" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_done"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/spacing_base"
-                        android:layout_marginEnd="@dimen/spacing_3x"
-                        android:layout_weight="0.3"
-                        android:background="@color/color_bg_tag"
-                        android:drawableStart="@drawable/ic_check_mark"
-                        android:drawableTint="@color/color_icon_tint_done_tag"
-                        android:gravity="center"
-                        android:paddingStart="@dimen/spacing_base"
-                        android:text="@string/label_done"
-                        android:textAppearance="@style/TextAppearance.MyTheme.Caption"
-                        android:textColor="@color/color_on_surface" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_bg_tag"
+                    android:drawableStart="@drawable/ic_error"
+                    android:drawableTint="@color/color_icon_tint_deadline_tag"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:paddingHorizontal="@dimen/spacing_base"
+                    android:paddingStart="@dimen/spacing_base"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Caption"
+                    android:textColor="@color/color_on_surface"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="5sp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="2 روز و 2 ساعت" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
-
     </com.zerobranch.layout.SwipeLayout>
 </layout>

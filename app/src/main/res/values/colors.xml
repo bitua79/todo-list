@@ -2,7 +2,7 @@
 <resources>
 
     <color name="color_primary">@color/deep_purple_500</color>
-    <color name="color_primary_variant">@color/deep_purple_400</color>
+    <color name="color_primary_variant">@color/deep_purple_800</color>
     <color name="color_secondary">@color/green_a200</color>
     <color name="color_secondary_variant">@color/teal_a400</color>
     <color name="color_background">@color/grey_100</color>

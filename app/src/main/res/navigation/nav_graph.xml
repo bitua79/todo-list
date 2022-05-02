@@ -55,6 +55,9 @@
             android:name="task"
             app:argType="com.example.todolist.data.model.Task"
             app:nullable="true" />
+        <argument
+            android:name="type"
+            app:argType="com.example.todolist.data.model.TaskType" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

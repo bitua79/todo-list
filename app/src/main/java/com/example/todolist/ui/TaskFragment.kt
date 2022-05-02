@@ -15,6 +15,7 @@ import com.example.todolist.core.getPersianDate
 import com.example.todolist.core.twoDigit
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
+import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskBinding
 import com.example.todolist.util.initializePersianDatePicker
 import com.example.todolist.util.isEmpty
@@ -95,7 +96,7 @@ class TaskFragment : Fragment() {
     }
 
     private fun setPriorityDropDown() {
-        if (!isEditPage){
+        if (!isEditPage) {
             priorityArrayAdapter = ArrayAdapter(
                 requireContext(),
                 R.layout.item_list_popup_window,
@@ -109,6 +110,24 @@ class TaskFragment : Fragment() {
                     val name = adapterView.getItemAtPosition(position).toString()
                     priority = Priority.enumValueOfTitle(name, requireContext())
                 }
+
+                when (args.type) {
+                    TaskType.Essential -> {
+                        setText(Priority.High.title)
+
+                    }
+                    TaskType.Important -> {
+                        setText(Priority.Medium.title)
+                    }
+
+                    TaskType.Daily -> {
+                        setText(Priority.Low.title)
+                    }
+                    else -> {
+                        // Default string
+                    }
+                }
+
             }
         }
     }
@@ -179,7 +198,7 @@ class TaskFragment : Fragment() {
 
     private fun getTaskFromInput(): Task {
         with(binding) {
-            val x =  Task(
+            val x = Task(
                 name = etName.text.toString(),
                 deadLine = getPersianDate(year, month, day, hour, minute, 0),
                 remainTime = null,
@@ -189,7 +208,7 @@ class TaskFragment : Fragment() {
                 ),
                 isDone = false
             )
-           return x
+            return x
         }
     }
 

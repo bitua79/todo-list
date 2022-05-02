@@ -10,7 +10,7 @@
         android:title = "@string/label_important" />
 
     <item
-        android:id="@+id/taskListFragment"
+        android:id="@+id/taskFragment"
         android:enabled="false"
         android:title="" />
 

@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.core.DateUtil
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
+import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskListBinding
-import com.example.todolist.util.getListByPriority
+import com.example.todolist.util.getListByType
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 abstract class TaskListFragmentDelegate(
     private val priority: Priority?,
-    private val isMainList: Boolean
+    private val type: TaskType
 ) : Fragment() {
     lateinit var binding: FragmentTaskListBinding
     private lateinit var listAdapter: TaskListAdapter
@@ -48,12 +49,12 @@ abstract class TaskListFragmentDelegate(
 
         observeData()
 
-        with(binding) {
-            fabIsVisible = isMainList
-            fabAddTask.setOnClickListener {
-                addTask()
-            }
+        val activity = requireActivity() as MainActivity
+        activity.binding.fabHome.setOnClickListener {
+           addTask()
         }
+        activity.binding.bottomNavigationView.menu.getItem(2).isChecked = true
+
     }
 
     // initialize adapter
@@ -73,16 +74,16 @@ abstract class TaskListFragmentDelegate(
 
     private fun observeData() {
         viewModel.allTasks.observe(viewLifecycleOwner) {
-            listAdapter.submitList(it.getListByPriority(priority))
+            listAdapter.submitList(it.getListByType(type, priority))
         }
     }
 
-    private fun addTask(){
-        findNavController().navigate(TaskListFragmentDirections.actionToTaskFragment(null))
+    private fun addTask() {
+        findNavController().navigate(TaskListFragmentDirections.actionToTaskFragment(null, type))
     }
 
-    private fun editTask(item: Task){
-        findNavController().navigate(TaskListFragmentDirections.actionToTaskFragment(item))
+    private fun editTask(item: Task) {
+        findNavController().navigate(TaskListFragmentDirections.actionToTaskFragment(item, TaskType.All))
     }
 
     private fun doneTask(item: Task) {
@@ -90,8 +91,8 @@ abstract class TaskListFragmentDelegate(
             name = item.name,
             deadLine = item.deadLine,
             remainTime = item.remainTime,
-            priority = Priority.Done,
-            isDone = item.isDone
+            priority = item.priority,
+            isDone = true
         )
         viewModel.removeTaskFromList(item)
         viewModel.addTaskToList(newItem)

@@ -2,6 +2,7 @@ package com.example.todolist.util
 
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
+import com.example.todolist.data.model.TaskType
 
 fun List<Task>.sortList(): MutableList<Task> {
     val high = mutableListOf<Task>()
@@ -30,9 +31,11 @@ fun List<Task>.sortList(): MutableList<Task> {
     return sortedList
 }
 
-
-fun List<Task>.getListByPriority(priority: Priority?): List<Task> {
-    if (priority == null) return this.sortList()
-    return this.filter { it.priority == priority }
+fun List<Task>.getListByType(type: TaskType?, priority: Priority?): List<Task> {
+    return when (type) {
+        TaskType.All -> this.sortList()
+        TaskType.Done -> this.filter { it.isDone }
+        else -> this.filter { it.priority == priority && !it.isDone }
+    }
 
 }
