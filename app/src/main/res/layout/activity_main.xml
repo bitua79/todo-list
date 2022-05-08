@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?android:colorBackground"
-            tools:openDrawer="start">
+           >
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
@@ -65,34 +65,34 @@
                 <com.google.android.material.bottomappbar.BottomAppBar
                     android:id="@+id/bottom_app_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/spacing_14x"
                     android:layout_gravity="bottom"
-                    app:contentInsetStart="0dp"
-                    app:fabCradleMargin="@dimen/spacing_2x"
-                    app:fabCradleRoundedCornerRadius="@dimen/spacing_4x">
+                    app:fabCradleVerticalOffset="@dimen/spacing_base"
+                    app:fabCradleMargin="@dimen/spacing_4x"
+                    app:fabCradleRoundedCornerRadius="@dimen/spacing_2x">
 
                     <com.google.android.material.bottomnavigation.BottomNavigationView
                         android:id="@+id/bottom_navigation_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/spacing_4x"
+                        android:layout_marginHorizontal="@dimen/spacing_4x"
                         android:background="@android:color/transparent"
                         app:elevation="0dp"
                         app:labelVisibilityMode="labeled"
                         app:menu="@menu/menu_bottom_navigation" />
 
                 </com.google.android.material.bottomappbar.BottomAppBar>
-
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:fabCustomSize="@dimen/spacing_16x"
-                    app:layout_anchor="@+id/bottom_app_bar"
-                    app:layout_anchorGravity="top|center"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_anchor="@id/bottom_app_bar"
                     app:maxImageSize="@dimen/spacing_10x"
                     app:srcCompat="@drawable/ic_add"
                     tools:ignore="ContentDescription" />
+
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             <com.google.android.material.navigation.NavigationView

@@ -21,8 +21,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layoutDirection="rtl"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gl_start"
@@ -96,27 +96,27 @@
 
                 <ImageView
                     android:id="@+id/iv_icon"
+                    android:layout_width="@dimen/spacing_11x"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/spacing_3x"
                     android:alpha="0.5"
                     android:src="@drawable/ic_circle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="@dimen/spacing_11x"
-                    android:layout_margin="@dimen/spacing_3x"
                     app:layout_constraintDimensionRatio="1"
-                    android:layout_height="0dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/lottie_done_load"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@id/iv_icon"
-                    app:layout_constraintEnd_toEndOf="@id/iv_icon"
-                    app:layout_constraintTop_toTopOf="@id/iv_icon"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_icon"
                     android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+                    app:layout_constraintEnd_toEndOf="@id/iv_icon"
+                    app:layout_constraintStart_toStartOf="@id/iv_icon"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon"
                     app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/done"
-                    android:layout_height="0dp"/>
+                    app:lottie_rawRes="@raw/done" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_task_name"
@@ -147,44 +147,27 @@
                     tools:text="1400/12/25" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_priority"
+                    android:id="@+id/tv_remain_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_12x"
-                    android:drawableStart="@drawable/ic_priority"
-                    android:drawablePadding="@dimen/spacing_base"
-                    android:drawableTint="@color/material_on_background_disabled"
-                    android:textAppearance="@style/TextAppearance.MyTheme.Caption"
-                    android:textColor="@color/material_on_background_disabled"
-                    app:getStringRes="@{task.priority.title}"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_deadline"
-                    app:layout_constraintStart_toEndOf="@id/tv_deadline"
-                    app:layout_constraintTop_toTopOf="@id/tv_deadline"
-                    tools:text="@string/label_high_priority" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_remain_time"
-                    app:layout_constraintStart_toStartOf="@id/tv_task_name"
-                    android:layout_marginEnd="@dimen/spacing_3x"
-                    app:layout_constraintTop_toBottomOf="@id/tv_deadline"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginVertical="@dimen/spacing_3x"
-                    android:layout_width="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_3x"
+                    android:layout_marginBottom="@dimen/spacing_3x"
                     android:background="@color/color_bg_tag"
-                    android:drawableStart="@drawable/ic_error"
+                    android:drawableEnd="@drawable/ic_error"
+                    android:drawablePadding="@dimen/spacing_base"
                     android:drawableTint="@color/color_icon_tint_deadline_tag"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:paddingHorizontal="@dimen/spacing_base"
-                    android:paddingStart="@dimen/spacing_base"
+                    android:paddingHorizontal="@dimen/spacing_3x"
                     android:textAppearance="@style/TextAppearance.MyTheme.Caption"
                     android:textColor="@color/color_on_surface"
-                    app:autoSizeMaxTextSize="12sp"
-                    app:autoSizeMinTextSize="5sp"
                     app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_deadline"
+                    app:layout_constraintTop_toTopOf="@id/tv_deadline"
+                    app:layout_constraintVertical_bias="0"
                     tools:text="2 روز و 2 ساعت" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
