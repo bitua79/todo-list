@@ -1,23 +1,17 @@
 package com.example.todolist.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.core.DateUtil
+import com.example.todolist.core.extensions.visible
 import com.example.todolist.core.settings.BaseFragment
 import com.example.todolist.data.model.Priority
-import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskListBinding
 import com.example.todolist.util.getListByType
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 abstract class BaseTaskListFragment(

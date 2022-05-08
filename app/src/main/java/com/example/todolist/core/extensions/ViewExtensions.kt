@@ -49,6 +49,14 @@ fun View.gone() {
     visibility = View.GONE
 }
 
+fun View.transparent(){
+    alpha = 0F
+}
+
+fun View.unTransparent(){
+    alpha = 1F
+}
+
 fun View.touchDelegate() {
     val parent = parent as View
     parent.post {

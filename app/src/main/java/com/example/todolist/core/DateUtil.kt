@@ -77,14 +77,14 @@ class DateUtil @Inject constructor(
             diffYear--
         }
 
-        diffDay += diffMonth * 30
+        diffDay += diffMonth * 30 + diffYear*365
 
         return when {
             diffYear < 0 -> {
                 context.getString(R.string.deadline_is_passed)
             }
             diffDay == 0 -> {
-                context.getString(R.string.remain_time_day, diffDay.twoDigit(), diffHour.twoDigit())
+                context.getString(R.string.remain_time_hour, diffHour.twoDigit(), diffMin.twoDigit())
 
             }
             else -> {
