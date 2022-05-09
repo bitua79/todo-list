@@ -10,26 +10,19 @@ fun getStringResource(view: TextView, id: Int) {
 }
 
 @BindingAdapter("setNullableText")
-fun setNullableText(view: TextInputEditText, text: String?) {
+fun setNullableText(view: TextView, text: String?) {
     text?.let {
-        view.setText(text)
+        view.text = text
     }
 }
 
 @BindingAdapter("setNullableText")
-fun setNullableText(view: MyAutoCompleteTextView, text: String?) {
-    text?.let {
-        view.setText(text)
-    }
-}
-
-@BindingAdapter("setNullableText")
-fun setNullableText(view: MyAutoCompleteTextView, text: Int?) {
+fun setNullableText(view: TextView, text: Int?) {
     text?.let {
         try {
-            view.setText(view.context.getString(text))
+            view.text = view.context.getString(text)
         } catch (e: Throwable) {
-
+            view.text = ""
         }
     }
 }

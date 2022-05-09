@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/dailyTaskListFragment"
-        android:icon = "@drawable/ic_coffee"
+        android:icon = "@drawable/selector_coffee"
         android:title = "@string/label_daily" />
 
     <item android:id="@+id/importantTaskListFragment"
-        android:icon = "@drawable/ic_time_briefcase"
+        android:icon = "@drawable/selector_time_briefcase"
         android:title = "@string/label_important" />
 
     <item
@@ -16,10 +16,10 @@
         android:title="" />
 
     <item android:id="@+id/essentialTaskListFragment"
-        android:icon = "@drawable/ic_briefcase"
+        android:icon = "@drawable/selector_briefcase"
         android:title = "@string/label_essential" />
 
     <item android:id="@+id/doneTaskListFragment"
-        android:icon = "@drawable/ic_tick_board"
+        android:icon = "@drawable/selector_tick_board"
         android:title = "@string/label_done" />
 </menu>
