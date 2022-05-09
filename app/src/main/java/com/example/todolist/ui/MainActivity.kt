@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity() {
             changeLanguage()
         }
 
+        binding.bottomNavigationView.menu.getItem(2).isChecked = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
