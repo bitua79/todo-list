@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity() {
             changeLanguage()
         }
 
-        binding.bottomAppBar.performHide()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -152,31 +151,16 @@ class MainActivity : AppCompatActivity() {
             MainPageUiState.MAIN_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                    viewHelper.visible()
-                    bottomAppBar.visible()
-
-                    fabHome.unTransparent()
-                    fabHome.isEnabled = true
-                }
-            }
-            MainPageUiState.FEATURE_FRAGMENT_CONTROLS_STATE -> {
-                binding.apply {
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottomAppBar.invisible()
-                    viewHelper.gone()
-
-                    fabHome.transparent()
-                    fabHome.isEnabled = false
+                    bottomNavigationView.visible()
+                    fabAdd.visible()
+                    toolbar.menu.findItem(R.id.action_search).isVisible = false
                 }
             }
             MainPageUiState.DETAIL_FRAGMENT_CONTROLS_STATE -> {
                 binding.apply {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottomAppBar.invisible()
-                    viewHelper.gone()
-
-                    fabHome.transparent()
-                    fabHome.isEnabled = false
+                    bottomNavigationView.gone()
+                    fabAdd.gone()
                 }
             }
         }

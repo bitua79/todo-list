@@ -1,14 +1,11 @@
-package com.example.todolist.ui
+package com.example.todolist.core
 
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.core.extensions.visible
-import com.example.todolist.core.settings.BaseFragment
 import com.example.todolist.data.model.Priority
+import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskListBinding
+import com.example.todolist.ui.MainActivity
 import com.example.todolist.util.getListByType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,10 +28,9 @@ abstract class BaseTaskListFragment(
 
     private fun setFabAction() {
         val activity = requireActivity() as MainActivity
-        activity.binding.fabHome.setOnClickListener {
+        activity.binding.fabAdd.setOnClickListener {
             addTask()
         }
-        activity.binding.bottomNavigationView.menu.getItem(2).isChecked = true
     }
 
     private fun observeData() {

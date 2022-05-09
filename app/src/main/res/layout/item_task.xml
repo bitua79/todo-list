@@ -133,41 +133,18 @@
                     tools:text="پروژه هوش " />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_deadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_calendar"
-                    android:drawablePadding="@dimen/spacing_base"
-                    android:drawableTint="@color/material_on_background_disabled"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.MyTheme.Caption"
-                    android:textColor="@color/material_on_background_disabled"
-                    app:layout_constraintStart_toStartOf="@id/tv_task_name"
-                    app:layout_constraintTop_toBottomOf="@id/tv_task_name"
-                    tools:text="1400/12/25" />
-
-                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_remain_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/spacing_3x"
+                    app:layout_constraintTop_toBottomOf="@id/tv_task_name"
+                    android:layout_marginEnd="@dimen/spacing_3x"
                     android:layout_marginBottom="@dimen/spacing_3x"
-                    android:background="@color/color_bg_tag"
-                    android:drawableEnd="@drawable/ic_error"
-                    android:drawablePadding="@dimen/spacing_base"
-                    android:drawableTint="@color/color_icon_tint_deadline_tag"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/spacing_3x"
+                    android:gravity="start"
                     android:textAppearance="@style/TextAppearance.MyTheme.Caption"
-                    android:textColor="@color/color_on_surface"
-                    app:autoSizeTextType="uniform"
+                    android:textColor="@color/color_text_remain_time"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintStart_toEndOf="@id/tv_deadline"
-                    app:layout_constraintTop_toTopOf="@id/tv_deadline"
-                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintStart_toStartOf="@id/tv_task_name"
                     tools:text="2 روز و 2 ساعت" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

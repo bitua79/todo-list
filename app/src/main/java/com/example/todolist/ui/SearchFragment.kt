@@ -2,7 +2,7 @@ package com.example.todolist.ui
 
 import androidx.core.widget.doAfterTextChanged
 import com.example.todolist.R
-import com.example.todolist.core.settings.BaseFragment
+import com.example.todolist.core.BaseFragment
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint

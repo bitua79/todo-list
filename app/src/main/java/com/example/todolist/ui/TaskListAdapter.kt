@@ -10,9 +10,9 @@ import com.example.todolist.core.DateUtil
 import com.example.todolist.core.extensions.gone
 import com.example.todolist.core.extensions.visible
 import com.example.todolist.core.getDate
-import com.example.todolist.core.toDateWithSlash
 import com.example.todolist.data.model.Task
 import com.example.todolist.databinding.ItemTaskBinding
+import com.example.todolist.util.showDoneTaskDialog
 import com.zerobranch.layout.SwipeLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
@@ -44,14 +44,17 @@ class TaskListAdapter(
                 // prevent crash when click on list in loading state
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    CoroutineScope(Main).launch {
-                        with(binding.lottieDoneLoad) {
-                            visible()
-                            playAnimation()
-                            delay(duration)
-                            gone()
+                    val item = getItem(position)
+                    binding.root.context.showDoneTaskDialog(item) {
+                        CoroutineScope(Main).launch {
+                            with(binding.lottieDoneLoad) {
+                                visible()
+                                playAnimation()
+                                delay(duration)
+                                gone()
+                            }
+                            onItemDone(getItem(position))
                         }
-                        onItemDone(getItem(position))
                     }
                 }
             }
@@ -69,7 +72,6 @@ class TaskListAdapter(
                 clDoneView.isEnabled = false
                 clEditView.isEnabled = false
 
-                tvDeadline.text = getDate(t.deadLine).toDateWithSlash()
                 tvRemainTime.text =
                     dateUtil.getRemainTime(getDate(t.deadLine), binding.root.context)
                 task = t
