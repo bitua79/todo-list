@@ -1,5 +1,6 @@
 package com.example.todolist.util
 
+import android.content.Context
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -13,8 +14,8 @@ import ir.hamsaa.persiandatepicker.api.PersianPickerDate
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener
 import java.util.*
 
-fun Fragment.showDoneTaskDialog(task: Task, doneTask: (t: Task) -> Unit) {
-    MaterialAlertDialogBuilder(requireContext())
+fun Context.showDoneTaskDialog(task: Task, doneTask: (t: Task) -> Unit) {
+    MaterialAlertDialogBuilder(this)
         .setIcon(R.drawable.ic_error)
         .setTitle(getString(R.string.msg_done))
         .setCancelable(true)

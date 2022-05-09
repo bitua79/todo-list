@@ -2,23 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/dailyTaskListFragment"
-        android:icon = "@drawable/ic_danger"
+        android:icon = "@drawable/ic_coffee"
         android:title = "@string/label_daily" />
 
     <item android:id="@+id/importantTaskListFragment"
-        android:icon = "@drawable/ic_danger"
+        android:icon = "@drawable/ic_time_briefcase"
         android:title = "@string/label_important" />
 
     <item
         android:id="@+id/taskFragment"
+        android:checked="true"
         android:enabled="false"
         android:title="" />
 
     <item android:id="@+id/essentialTaskListFragment"
-        android:icon = "@drawable/ic_danger"
+        android:icon = "@drawable/ic_briefcase"
         android:title = "@string/label_essential" />
 
     <item android:id="@+id/doneTaskListFragment"
-        android:icon = "@drawable/ic_check_mark"
+        android:icon = "@drawable/ic_tick_board"
         android:title = "@string/label_done" />
 </menu>

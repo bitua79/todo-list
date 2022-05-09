@@ -7,9 +7,12 @@
     <!--  region grey  -->
     <color name="grey_100">#F7F7F7</color>
     <color name="grey_100_2">#F6F6F6</color>
+    <color name="grey_250">#DADADA</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_400">#C4C4C4</color>
+    <color name="grey_450">#BBBBBB</color>
     <color name="grey_800">#3D3D3D</color>
+    <color name="grey_820">#2C2C2C</color>
     <color name="grey_850">#2b2b2b</color>
     <color name="grey_900">#191919</color>
     <!--endregion-->
