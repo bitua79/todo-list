@@ -13,6 +13,7 @@ import kotlinx.android.parcel.Parcelize
 data class Task(
     @PrimaryKey
     val name: String,
+    val subject: String,
     val deadLine: Long,
     val remainTime: String? = null,
     val priority: Priority,

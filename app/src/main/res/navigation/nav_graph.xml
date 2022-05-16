@@ -20,26 +20,22 @@
     <fragment
         android:id="@+id/dailyTaskListFragment"
         android:name="com.example.todolist.ui.DailyTaskListFragment"
-        tools:layout="@layout/fragment_task_list" >
-    </fragment>
+        tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/essentialTaskListFragment"
         android:name="com.example.todolist.ui.EssentialTaskListFragment"
-        tools:layout="@layout/fragment_task_list" >
-    </fragment>
+        tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.example.todolist.ui.TaskListFragment"
-        tools:layout="@layout/fragment_task_list">
-    </fragment>
+        tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/importantTaskListFragment"
         android:name="com.example.todolist.ui.ImportantTaskListFragment"
-        tools:layout="@layout/fragment_task_list" >
-    </fragment>
+        tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/doneTaskListFragment"

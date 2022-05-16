@@ -6,6 +6,7 @@
     <string name="label_search">جستجو</string>
 
     <string name="title_task_name">نام تسک:</string>
+    <string name="title_task_subject">موضوع:</string>
     <string name="title_deadline">تاریخ تحویل:</string>
     <string name="title_remain_time">زمان باقی مانده:</string>
     <string name="title_priority">اولویت:</string>
