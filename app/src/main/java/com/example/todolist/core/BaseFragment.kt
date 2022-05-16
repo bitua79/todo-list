@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
+import com.example.todolist.ui.TaskFragmentDirections
 import com.example.todolist.ui.TaskListAdapter
 import com.example.todolist.ui.TaskListFragmentDirections
 import com.example.todolist.ui.TaskViewModel
@@ -83,6 +84,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     private fun doneTask(item: Task) {
         val newItem = Task(
             name = item.name,
+            subject = item.subject,
             deadLine = item.deadLine,
             remainTime = item.remainTime,
             priority = item.priority,

@@ -11,17 +11,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todolist.R
+import com.example.todolist.core.DateUtil
+import com.example.todolist.core.getDate
 import com.example.todolist.core.getPersianDate
 import com.example.todolist.core.twoDigit
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskBinding
-import com.example.todolist.util.initializePersianDatePicker
-import com.example.todolist.util.isEmpty
-import com.example.todolist.util.setDatePickerClickHandler
+import com.example.todolist.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
+import javax.inject.Inject
+import kotlin.math.min
 
 
 @AndroidEntryPoint
@@ -198,8 +200,9 @@ class TaskFragment : Fragment() {
 
     private fun getTaskFromInput(): Task {
         with(binding) {
-            val x = Task(
+            return Task(
                 name = etName.text.toString(),
+                subject = etSubject.text.toString(),
                 deadLine = getPersianDate(year, month, day, hour, minute, 0),
                 remainTime = null,
                 priority = Priority.enumValueOfTitle(
@@ -208,7 +211,6 @@ class TaskFragment : Fragment() {
                 ),
                 isDone = false
             )
-            return x
         }
     }
 
@@ -217,9 +219,9 @@ class TaskFragment : Fragment() {
         with(binding) {
             if (
                 etName.isEmpty(tilPriority) ||
-                tvPriority.isEmpty(tilPriority) ||
+                tvDatePicker.isEmpty(tilDatePicker) ||
                 tvTimePicker.isEmpty(tilTimePicker) ||
-                tvDatePicker.isEmpty(tilDatePicker)
+                tvPriority.isEmpty(tilPriority)
             ) {
                 valid = false
             }

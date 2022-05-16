@@ -32,10 +32,11 @@ fun List<Task>.sortList(): MutableList<Task> {
 }
 
 fun List<Task>.getListByType(type: TaskType?, priority: Priority?): List<Task> {
-    return when (type) {
-        TaskType.All -> this.sortList()
+    val list =  when (type) {
+        TaskType.All -> this.sortList().filter { !it.isDone }
         TaskType.Done -> this.filter { it.isDone }
         else -> this.filter { it.priority == priority && !it.isDone }
     }
 
+    return list.sortedBy { it.deadLine }
 }

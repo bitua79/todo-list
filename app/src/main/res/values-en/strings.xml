@@ -6,6 +6,7 @@
     <string name="label_search">search</string>
 
     <string name="title_task_name">task name:</string>
+    <string name="title_task_subject">subject:</string>
     <string name="title_deadline">deadline:</string>
     <string name="title_remain_time">remain time:</string>
     <string name="title_priority">priority:</string>
@@ -25,7 +26,7 @@
     <string name="label_low_priority">low priority</string>
     <string name="label_is_done">is done</string>
 
-    <string name="msg_done">Are you sure ? :/</string>
+    <string name="msg_done">Are you sure ?</string>
     <string name="msg_confirm_done">Yes</string>
     <string name="msg_reject_done">No</string>
 
