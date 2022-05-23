@@ -217,8 +217,7 @@
                 android:layout_marginVertical="@dimen/spacing_4x"
                 android:text="@{isEdit? @string/label_invoke_edit : @string/label_add}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/label_add" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

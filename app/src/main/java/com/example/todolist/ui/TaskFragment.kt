@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todolist.R
-import com.example.todolist.core.DateUtil
 import com.example.todolist.core.getDate
 import com.example.todolist.core.getPersianDate
 import com.example.todolist.core.twoDigit
@@ -19,11 +18,12 @@ import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskBinding
-import com.example.todolist.util.*
+import com.example.todolist.util.getPersianDate
+import com.example.todolist.util.initializePersianDatePicker
+import com.example.todolist.util.isEmpty
+import com.example.todolist.util.setDatePickerClickHandler
 import dagger.hilt.android.AndroidEntryPoint
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
-import javax.inject.Inject
-import kotlin.math.min
 
 
 @AndroidEntryPoint
@@ -38,8 +38,8 @@ class TaskFragment : Fragment() {
     private val args by navArgs<TaskFragmentArgs>()
     private var isEditPage = false
 
-    private var minute: Int = 0
-    private var hour: Int = 0
+    private var minute: Int = 59
+    private var hour: Int = 23
     private var day: Int = 0
     private var month: Int = 0
     private var year: Int = 0
@@ -69,6 +69,16 @@ class TaskFragment : Fragment() {
         setPriorityDropDown()
 
         with(binding) {
+
+            args.task?.let {
+                val time =
+                    getDate(it.deadLine)
+                setTimeText(time.hour,time.minute)
+                hour = time.hour
+                minute = time.minute
+                tvDatePicker.setText(time.getPersianDate(), false)
+
+            }
 
             tvDatePicker.setOnClickListener {
                 setDatePickerClickListener()
@@ -154,8 +164,8 @@ class TaskFragment : Fragment() {
         timePicker = TimePickerDialog(
             requireContext(),
             timePickerClickHandler,
-            23,
-            59,
+            hour,
+            minute,
             true
         )
         timePicker.show()
@@ -163,44 +173,50 @@ class TaskFragment : Fragment() {
 
     private val timePickerClickHandler: TimePickerDialog.OnTimeSetListener =
         TimePickerDialog.OnTimeSetListener { _, h, m ->
-            val formattedTime: String = when {
-                h == 0 -> {
-                    if (m < 10) {
-                        "${h.twoDigit()}:0${m.twoDigit()}"
-                    } else {
-                        "${h.twoDigit()}:${m.twoDigit()}"
-                    }
-                }
-                h > 12 -> {
-                    if (m < 10) {
-                        "${h.twoDigit()}:0${m.twoDigit()}"
-                    } else {
-                        "${h.twoDigit()}:${m.twoDigit()}"
-                    }
-                }
-                h == 12 -> {
-                    if (m < 10) {
-                        "${h.twoDigit()}:${m.twoDigit()}"
-                    } else {
-                        "${h.twoDigit()}:${m.twoDigit()}"
-                    }
-                }
-                else -> {
-                    if (m < 10) {
-                        "${h.twoDigit()}:${m.twoDigit()}"
-                    } else {
-                        "${h.twoDigit()}:${m.twoDigit()}"
-                    }
-                }
-            }
             hour = h
             minute = m
-            binding.tvTimePicker.setText(formattedTime)
+
+            setTimeText(h, m)
         }
+
+    private fun setTimeText(h: Int, m: Int) {
+        val formattedTime = when {
+            h == 0 -> {
+                if (m < 10) {
+                    "${h.twoDigit()}:0${m.twoDigit()}"
+                } else {
+                    "${h.twoDigit()}:${m.twoDigit()}"
+                }
+            }
+            h > 12 -> {
+                if (m < 10) {
+                    "${h.twoDigit()}:0${m.twoDigit()}"
+                } else {
+                    "${h.twoDigit()}:${m.twoDigit()}"
+                }
+            }
+            h == 12 -> {
+                if (m < 10) {
+                    "${h.twoDigit()}:${m.twoDigit()}"
+                } else {
+                    "${h.twoDigit()}:${m.twoDigit()}"
+                }
+            }
+            else -> {
+                if (m < 10) {
+                    "${h.twoDigit()}:${m.twoDigit()}"
+                } else {
+                    "${h.twoDigit()}:${m.twoDigit()}"
+                }
+            }
+        }
+        binding.tvTimePicker.setText(formattedTime)
+    }
 
     private fun getTaskFromInput(): Task {
         with(binding) {
             return Task(
+                id = args.task?.id ?: 0,
                 name = etName.text.toString(),
                 subject = etSubject.text.toString(),
                 deadLine = getPersianDate(year, month, day, hour, minute, 0),

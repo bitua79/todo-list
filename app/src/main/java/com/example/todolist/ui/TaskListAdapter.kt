@@ -21,8 +21,9 @@ import kotlinx.coroutines.launch
 
 class TaskListAdapter(
     private val dateUtil: DateUtil,
+    private val onItemClicked: (t: Task) -> Unit = {},
     private val onItemDone: (t: Task) -> Unit = {},
-    private val onItemEdit: (t: Task) -> Unit = {}
+    private val onItemRemove: (t: Task) -> Unit = {}
 ) : ListAdapter<Task, TaskListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Task>() {
         // Id should be unique
@@ -42,7 +43,7 @@ class TaskListAdapter(
             binding.clDoneView.setOnClickListener {
                 binding.swipeLayout.close(true)
                 // prevent crash when click on list in loading state
-                val position = adapterPosition
+                val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     binding.root.context.showDoneTaskDialog(item) {
@@ -53,24 +54,32 @@ class TaskListAdapter(
                                 delay(duration)
                                 gone()
                             }
-                            onItemDone(getItem(position))
+                            onItemDone(item)
                         }
                     }
                 }
             }
 
-            binding.clEditView.setOnClickListener {
+            binding.clRemoveView.setOnClickListener {
                 // prevent crash when click on list in loading state
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION)
-                    onItemEdit(getItem(position))
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    CoroutineScope(Main).launch {
+                        binding.swipeLayout.close(true)
+                        onItemRemove(getItem(position))
+                    }
+                }
+            }
+
+            binding.cvMain.setOnClickListener {
+                onItemClicked(getItem(bindingAdapterPosition))
             }
         }
 
         fun bind(t: Task) {
             with(binding) {
                 clDoneView.isEnabled = false
-                clEditView.isEnabled = false
+                clRemoveView.isEnabled = false
 
                 tvRemainTime.text =
                     dateUtil.getRemainTime(getDate(t.deadLine), binding.root.context)
@@ -85,11 +94,11 @@ class TaskListAdapter(
                         if (direction == SwipeLayout.LEFT)
                             clDoneView.isEnabled = true
                         if (direction == SwipeLayout.RIGHT)
-                            clEditView.isEnabled = true
+                            clRemoveView.isEnabled = true
                     }
 
                     override fun onClose() {
-                        clEditView.isEnabled = false
+                        clRemoveView.isEnabled = false
                         clDoneView.isEnabled = false
                     }
                 })

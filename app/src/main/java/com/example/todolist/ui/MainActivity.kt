@@ -162,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     bottomNavigationView.gone()
                     fabAdd.gone()
+                    toolbar.menu.findItem(R.id.action_search).isVisible = true
                 }
             }
         }

@@ -12,6 +12,7 @@ import com.google.android.material.textfield.TextInputLayout
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener
+import saman.zamani.persiandate.PersianDate
 import java.util.*
 
 fun Context.showDoneTaskDialog(task: Task, doneTask: (t: Task) -> Unit) {
@@ -77,6 +78,19 @@ fun PersianPickerDate?.getDatePickerDate(): String {
             it.persianYear,
             it.persianMonth,
             it.persianDay
+        )
+    }
+    return ""
+}
+
+fun PersianDate?.getPersianDate(): String {
+    this?.let {
+        return String.format(
+            Locale.getDefault(),
+            "%d/%d/%d",
+            it.shYear,
+            it.shMonth,
+            it.shDay
         )
     }
     return ""
