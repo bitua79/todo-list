@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         app:draggedItem="@id/cv_main"
         app:leftItem="@id/cl_done_view"
-        app:rightItem="@id/cl_edit_view"
+        app:rightItem="@id/cl_remove_view"
         app:swipeDirection="right | left">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
                 app:layout_constraintGuide_percent="0.7" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_edit_view"
+                android:id="@+id/cl_remove_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
@@ -53,8 +53,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/spacing_5x"
-                    android:src="@drawable/ic_edit"
+                    android:layout_margin="@dimen/spacing_4x"
+                    android:src="@drawable/ic_delete"
                     android:tint="@color/white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

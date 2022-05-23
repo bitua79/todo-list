@@ -59,8 +59,9 @@ abstract class BaseFragment<B : ViewDataBinding>(
     fun setupRecyclerview() {
         listAdapter = TaskListAdapter(
             dateUtil,
-            { task -> doneTask(task) },
-            { task -> editTask(task) }
+            onItemClicked = { task -> editTask(task) },
+            onItemDone = { task -> doneTask(task) },
+            onItemRemove = { task -> removeTask(task) }
         )
 
         initRecyclerView()
@@ -83,6 +84,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     private fun doneTask(item: Task) {
         val newItem = Task(
+            id = item.id,
             name = item.name,
             subject = item.subject,
             deadLine = item.deadLine,
@@ -92,5 +94,9 @@ abstract class BaseFragment<B : ViewDataBinding>(
         )
         viewModel.removeTaskFromList(item)
         viewModel.addTaskToList(newItem)
+    }
+
+    private fun removeTask(item: Task){
+        viewModel.removeTaskFromList(item)
     }
 }

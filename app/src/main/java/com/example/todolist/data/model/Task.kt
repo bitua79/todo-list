@@ -11,7 +11,8 @@ import kotlinx.android.parcel.Parcelize
     tableName = "tbl_tasks"
 )
 data class Task(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id:Int=0,
     val name: String,
     val subject: String,
     val deadLine: Long,

@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class TaskDefaultRepository @Inject constructor(
     private val taskDao: TaskDao
-) :TaskRepository{
+) : TaskRepository {
     override fun getAllTasks() = taskDao.getAllTasks()
 
     override fun getTasksByQuery(query: String): LiveData<List<Task>> {
@@ -20,4 +20,5 @@ class TaskDefaultRepository @Inject constructor(
 
     override fun addTask(task: Task) = taskDao.add(task)
 
-    override fun editTask(task: Task) = taskDao.edit(task.name, task.deadLine)}
+    override fun editTask(task: Task) = taskDao.edit(task.id, task.name, task.deadLine)
+}
