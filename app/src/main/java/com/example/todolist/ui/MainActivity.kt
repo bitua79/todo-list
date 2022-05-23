@@ -1,11 +1,14 @@
 package com.example.todolist.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
@@ -16,9 +19,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.todolist.R
-import com.example.todolist.core.extensions.*
+import com.example.todolist.core.extensions.collectOnActivity
+import com.example.todolist.core.extensions.gone
+import com.example.todolist.core.extensions.visible
 import com.example.todolist.core.settings.AppPreferences
 import com.example.todolist.core.settings.Language
 import com.example.todolist.core.settings.LocaleHelper
@@ -27,6 +32,7 @@ import com.example.todolist.databinding.ActivityMainBinding
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -55,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         super.attachBaseContext(newBase)
     }
 
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
@@ -64,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         initNavController()
         setupToolbar()
         subscribeViewModel()
+        initBottomNavigation()
     }
 
     private fun initUiComponents() {
@@ -84,8 +93,6 @@ class MainActivity : AppCompatActivity() {
         switchLanguage.setOnClickListener {
             changeLanguage()
         }
-
-        binding.bottomNavigationView.menu.getItem(2).isChecked = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -128,10 +135,46 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun initBottomNavigation() {
+        val bottomNavigation = binding.bottomNavigationView
+
+        bottomNavigation.add(
+            MeowBottomNavigation.Model(
+                R.id.dailyTaskListFragment,
+                R.drawable.selector_coffee
+            )
+        )
+        bottomNavigation.add(
+            MeowBottomNavigation.Model(
+                R.id.importantTaskListFragment,
+                R.drawable.selector_time_briefcase
+            )
+        )
+        bottomNavigation.add(
+            MeowBottomNavigation.Model(
+                0,
+                0
+            )
+        )
+        bottomNavigation.add(
+            MeowBottomNavigation.Model(
+                R.id.essentialTaskListFragment,
+                R.drawable.selector_briefcase
+            )
+        )
+        bottomNavigation.add(
+            MeowBottomNavigation.Model(
+                R.id.doneTaskListFragment,
+                R.drawable.selector_tick_board
+            )
+        )
+    }
+
     private fun initNavController() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.taskListFragment, R.id.doneTaskListFragment, R.id.dailyTaskListFragment, R.id.importantTaskListFragment, R.id.essentialTaskListFragment -> setUiState(
@@ -143,8 +186,9 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-        binding.bottomNavigationView.setupWithNavController(navController)
-
+        binding.bottomNavigationView.setOnClickMenuListener { model ->
+            navController.navigate(model.id)
+        }
     }
 
     private fun setUiState(state: MainPageUiState) {

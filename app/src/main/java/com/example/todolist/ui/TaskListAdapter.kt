@@ -43,7 +43,7 @@ class TaskListAdapter(
             binding.clDoneView.setOnClickListener {
                 binding.swipeLayout.close(true)
                 // prevent crash when click on list in loading state
-                val position = bindingAdapterPosition
+                val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     binding.root.context.showDoneTaskDialog(item) {
@@ -62,7 +62,7 @@ class TaskListAdapter(
 
             binding.clRemoveView.setOnClickListener {
                 // prevent crash when click on list in loading state
-                val position = bindingAdapterPosition
+                val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     CoroutineScope(Main).launch {
                         binding.swipeLayout.close(true)
@@ -72,7 +72,7 @@ class TaskListAdapter(
             }
 
             binding.cvMain.setOnClickListener {
-                onItemClicked(getItem(bindingAdapterPosition))
+                onItemClicked(getItem(adapterPosition))
             }
         }
 
