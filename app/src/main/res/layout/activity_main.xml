@@ -46,25 +46,27 @@
                     app:navGraph="@navigation/nav_graph"
                     tools:layout="@layout/fragment_task_list" />
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/spacing_half_base"
-                    app:elevation="0dp"
-                    app:itemIconSize="@dimen/spacing_7x"
-                    app:labelVisibilityMode="unlabeled"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:menu="@menu/menu_bottom_navigation" />
+                    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+                        android:id="@+id/bottom_navigation_view"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:mbn_backgroundBottomColor="@color/color_surface"
+                        app:mbn_defaultIconColor="@color/color_on_surface"
+                        app:mbn_selectedIconColor="@color/color_primary"
+                        android:layout_width="match_parent"
+                        app:mbn_shadowColor="@color/color_primary"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_add"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/bottom_navigation_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginBottom="@dimen/spacing_5x"
                     app:layout_constraintTop_toTopOf="@id/bottom_navigation_view"
+                    app:layout_constraintBottom_toBottomOf="@id/bottom_navigation_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:elevation="@dimen/spacing_2x"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_add"
                     tools:ignore="ContentDescription" />
 
