@@ -11,23 +11,29 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todolist.R
+import com.example.todolist.core.DateUtil
 import com.example.todolist.core.getDate
 import com.example.todolist.core.getPersianDate
-import com.example.todolist.core.twoDigit
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskBinding
-import com.example.todolist.util.getPersianDate
+import com.example.todolist.util.getPersianDateString
 import com.example.todolist.util.initializePersianDatePicker
 import com.example.todolist.util.isEmpty
-import com.example.todolist.util.setDatePickerClickHandler
+import com.example.todolist.util.twoDigit
 import dagger.hilt.android.AndroidEntryPoint
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate
+import ir.hamsaa.persiandatepicker.api.PersianPickerListener
+import saman.zamani.persiandate.PersianDate
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class TaskFragment : Fragment() {
+
+    // region variables
     private lateinit var binding: FragmentTaskBinding
     private val listViewModel: TaskViewModel by activityViewModels()
 
@@ -45,6 +51,11 @@ class TaskFragment : Fragment() {
     private var year: Int = 0
 
     lateinit var priority: Priority
+
+    @Inject
+    lateinit var dateUtil: DateUtil
+
+    //endregion
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,21 +76,22 @@ class TaskFragment : Fragment() {
 
     private fun initViews() {
 
-        datePicker = initializePersianDatePicker()
+        // Initialize persian date picker
+        datePicker = initializePersianDatePicker(args.task?.deadLine, dateUtil.getThisYear())
+
+        // initialize priority drop down
         setPriorityDropDown()
 
         with(binding) {
 
             args.task?.let {
-                val time =
-                    getDate(it.deadLine)
-                setTimeText(time.hour,time.minute)
+                val time = getDate(it.deadLine)
                 hour = time.hour
                 minute = time.minute
-                tvDatePicker.setText(time.getPersianDate(), false)
-
+                initValues(time)
             }
 
+            // Set date click listener on til and tv
             tvDatePicker.setOnClickListener {
                 setDatePickerClickListener()
             }
@@ -87,6 +99,7 @@ class TaskFragment : Fragment() {
                 setDatePickerClickListener()
             }
 
+            // Set time click listener on til and tv
             tvTimePicker.setOnClickListener {
                 setTimePickerClickListener()
             }
@@ -94,6 +107,7 @@ class TaskFragment : Fragment() {
                 setTimePickerClickListener()
             }
 
+            // Invoke edit or addition
             btn.setOnClickListener {
                 if (checkValidation()) {
                     if (this@TaskFragment.isEditPage)
@@ -107,6 +121,31 @@ class TaskFragment : Fragment() {
         }
     }
 
+    // Initial fields with task (if it is edit page)
+    private fun initValues(time: PersianDate) {
+        with(time) {
+            setTimeText(hour, minute)
+            setDateText(shYear, shMonth, shDay)
+        }
+
+        val item = when (args.type) {
+            TaskType.Essential -> {
+                Priority.High.title
+            }
+            TaskType.Important -> {
+                Priority.Medium.title
+            }
+            TaskType.Daily -> {
+                Priority.Low.title
+            }
+            else -> null
+        }
+        setPriorityText(item)
+    }
+
+    //region click listeners
+
+    // Setup priority drop down
     private fun setPriorityDropDown() {
         if (!isEditPage) {
             priorityArrayAdapter = ArrayAdapter(
@@ -122,45 +161,52 @@ class TaskFragment : Fragment() {
                     val name = adapterView.getItemAtPosition(position).toString()
                     priority = Priority.enumValueOfTitle(name, requireContext())
                 }
-
-                when (args.type) {
-                    TaskType.Essential -> {
-                        setText(Priority.High.title)
-
-                    }
-                    TaskType.Important -> {
-                        setText(Priority.Medium.title)
-                    }
-
-                    TaskType.Daily -> {
-                        setText(Priority.Low.title)
-                    }
-                    else -> {
-                        // Default string
-                    }
-                }
-
             }
         }
     }
 
+    // Set date picker listener
     private fun setDatePickerClickListener() {
-        datePicker.setDatePickerClickHandler(
-            completeTextView = binding.tvDatePicker,
-            action = {
-                year = it?.persianYear ?: 0
-                month = it?.persianMonth ?: 0
-                day = it?.persianDay ?: 0
-            },
-            removeError = {
-                with(binding) {
-                    tilDatePicker.isErrorEnabled = false
-                    tilDatePicker.error = null
+        with(datePicker) {
+            setListener(object : PersianPickerListener {
+                override fun onDateSelected(persianPickerDate: PersianPickerDate?) {
+                    persianPickerDate?.let {
+
+                        val label =
+                            getPersianDateString(it.persianYear, it.persianMonth, it.persianDay)
+                        // removeError
+                        with(binding) {
+                            tilDatePicker.isErrorEnabled = false
+                            tilDatePicker.error = null
+                            tvDatePicker.setText(label, false)
+
+                            // Set variables
+                            year = it.persianYear
+                            month = it.persianMonth
+                            day = it.persianDay
+                        }
+
+                    }
                 }
+
+                override fun onDismissed() {}
             })
+
+            args.task?.let { setInitDate(it.deadLine) }
+            show()
+        }
     }
 
+    // Set time picker listener
     private fun setTimePickerClickListener() {
+        // Create a timeClickHandler
+        val timePickerClickHandler: TimePickerDialog.OnTimeSetListener =
+            TimePickerDialog.OnTimeSetListener { _, h, m ->
+                hour = h
+                minute = m
+                setTimeText(h, m)
+            }
+
         timePicker = TimePickerDialog(
             requireContext(),
             timePickerClickHandler,
@@ -171,47 +217,23 @@ class TaskFragment : Fragment() {
         timePicker.show()
     }
 
-    private val timePickerClickHandler: TimePickerDialog.OnTimeSetListener =
-        TimePickerDialog.OnTimeSetListener { _, h, m ->
-            hour = h
-            minute = m
+    //endregion
 
-            setTimeText(h, m)
-        }
-
+    // region setting text
     private fun setTimeText(h: Int, m: Int) {
-        val formattedTime = when {
-            h == 0 -> {
-                if (m < 10) {
-                    "${h.twoDigit()}:0${m.twoDigit()}"
-                } else {
-                    "${h.twoDigit()}:${m.twoDigit()}"
-                }
-            }
-            h > 12 -> {
-                if (m < 10) {
-                    "${h.twoDigit()}:0${m.twoDigit()}"
-                } else {
-                    "${h.twoDigit()}:${m.twoDigit()}"
-                }
-            }
-            h == 12 -> {
-                if (m < 10) {
-                    "${h.twoDigit()}:${m.twoDigit()}"
-                } else {
-                    "${h.twoDigit()}:${m.twoDigit()}"
-                }
-            }
-            else -> {
-                if (m < 10) {
-                    "${h.twoDigit()}:${m.twoDigit()}"
-                } else {
-                    "${h.twoDigit()}:${m.twoDigit()}"
-                }
-            }
-        }
+        val formattedTime = "${h.twoDigit()}:${m.twoDigit()}"
         binding.tvTimePicker.setText(formattedTime)
     }
+
+    private fun setDateText(y: Int, m: Int, d: Int) {
+        val formattedDate = getPersianDateString(y, m, d)
+        binding.tvDatePicker.setText(formattedDate)
+    }
+
+    private fun setPriorityText(item: Int?) {
+        item?.let { binding.tvPriority.setText(item) }
+    }
+    //endregion
 
     private fun getTaskFromInput(): Task {
         with(binding) {
@@ -244,6 +266,4 @@ class TaskFragment : Fragment() {
         }
         return valid
     }
-
-
 }

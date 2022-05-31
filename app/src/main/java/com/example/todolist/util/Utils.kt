@@ -3,6 +3,7 @@ package com.example.todolist.util
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
+import java.util.*
 
 fun List<Task>.sortList(): MutableList<Task> {
     val high = mutableListOf<Task>()
@@ -39,4 +40,13 @@ fun List<Task>.getListByType(type: TaskType?, priority: Priority?): List<Task> {
     }
 
     return list.sortedBy { it.deadLine }
+}
+
+fun getZeroInDefaultLocale(): String {
+    return String.format(Locale.getDefault(), "%d", 0)
+}
+
+fun Int.twoDigit(): String {     // To handle one digit fields => 0:0 -> 00:00
+    return String.format(Locale.getDefault(), "%2d", this)
+        .replace(" ", getZeroInDefaultLocale())
 }

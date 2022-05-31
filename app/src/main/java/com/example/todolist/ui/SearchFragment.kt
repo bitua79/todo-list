@@ -2,7 +2,7 @@ package com.example.todolist.ui
 
 import androidx.core.widget.doAfterTextChanged
 import com.example.todolist.R
-import com.example.todolist.core.BaseFragment
+import com.example.todolist.core.base.BaseTaskListFragment
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment :
-    BaseFragment<FragmentSearchBinding>(R.layout.fragment_search, TaskType.All) {
+    BaseTaskListFragment<FragmentSearchBinding>(R.layout.fragment_search, TaskType.All) {
 
     override fun onInitDataBinding() {
         setupRecyclerview()

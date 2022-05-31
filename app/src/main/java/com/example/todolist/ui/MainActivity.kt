@@ -21,14 +21,14 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.todolist.R
-import com.example.todolist.core.extensions.collectOnActivity
-import com.example.todolist.core.extensions.gone
-import com.example.todolist.core.extensions.visible
 import com.example.todolist.core.settings.AppPreferences
 import com.example.todolist.core.settings.Language
 import com.example.todolist.core.settings.LocaleHelper
 import com.example.todolist.core.settings.Theme
 import com.example.todolist.databinding.ActivityMainBinding
+import com.example.todolist.util.collectOnActivity
+import com.example.todolist.util.gone
+import com.example.todolist.util.visible
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+//        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initUiComponents()
