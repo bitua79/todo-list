@@ -59,7 +59,7 @@
         <item name="hintEnabled">false</item>
     </style>
 
-    <style name="Widget.Office.AutoCompleteTextView" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.ToDoList.AutoCompleteTextView" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:padding">@dimen/spacing_3x</item>
         <item name="android:textAppearance">?attr/textAppearanceBody2</item>
         <item name="android:gravity">start|center_vertical</item>

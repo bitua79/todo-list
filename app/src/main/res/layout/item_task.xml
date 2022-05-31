@@ -9,78 +9,6 @@
             name="task"
             type="com.example.todolist.data.model.Task" />
     </data>
-
-    <com.zerobranch.layout.SwipeLayout
-        android:id="@+id/swipe_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:draggedItem="@id/cv_main"
-        app:leftItem="@id/cl_done_view"
-        app:rightItem="@id/cl_remove_view"
-        app:swipeDirection="right | left">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layoutDirection="rtl">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.3" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.7" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_remove_view"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/spacing_2x"
-                android:layout_marginBottom="@dimen/spacing_2x"
-                android:background="@drawable/bg_cornered_end"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/gl_end">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/spacing_4x"
-                    android:src="@drawable/ic_delete"
-                    android:tint="@color/white" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_done_view"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:layout_marginStart="@dimen/spacing_2x"
-                android:layout_marginBottom="@dimen/spacing_2x"
-                android:background="@drawable/bg_cornered_start"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="@id/gl_start"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/spacing_4x"
-                    android:src="@drawable/ic_check_mark"
-                    android:tint="@color/white" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_main"
             android:layout_width="match_parent"
@@ -162,5 +90,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
-    </com.zerobranch.layout.SwipeLayout>
+<!--    </com.zerobranch.layout.SwipeLayout>-->
 </layout>

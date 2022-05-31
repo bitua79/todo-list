@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.example.todolist.core.BaseViewModel
+import com.example.todolist.core.base.BaseViewModel
 import com.example.todolist.data.model.Task
 import com.example.todolist.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel

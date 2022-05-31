@@ -14,17 +14,8 @@
     <color name="color_text_subject">@color/grey_250</color>
     <color name="color_text_title">@color/white</color>
 
-    <!--  priority color  -->
-    <color name="color_priority_high">@color/pink_800</color>
-    <color name="color_priority_medium">@color/orange_a200</color>
-    <color name="color_priority_low">@color/color_secondary</color>
-
-    <!--  tag colors  -->
-    <color name="color_bg_tag">@color/grey_800</color>
-    <color name="color_icon_tint_deadline_tag">@color/orange_a200</color>
-    <color name="color_icon_tint_edit_tag">@color/light_blue_600</color>
-    <color name="color_icon_tint_done_tag">@color/teal_a400</color>
-
+    <color name="color_remove_item">@color/deep_orange_900</color>
+    <color name="color_done_item">@color/teal_800</color>
 
     <color name="color_edit_text_box_border">@color/blue_grey_900</color>
     <color name="color_edit_text_box_background">@color/blue_grey_900_alpha_23</color>

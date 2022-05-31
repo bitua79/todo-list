@@ -1,99 +1,48 @@
 package com.example.todolist.util
 
 import android.content.Context
+import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.todolist.R
-import com.example.todolist.core.MyAutoCompleteTextView
-import com.example.todolist.data.model.Task
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
-import ir.hamsaa.persiandatepicker.api.PersianPickerDate
-import ir.hamsaa.persiandatepicker.api.PersianPickerListener
-import saman.zamani.persiandate.PersianDate
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
-fun Context.showDoneTaskDialog(task: Task, doneTask: (t: Task) -> Unit) {
-    MaterialAlertDialogBuilder(this)
-        .setIcon(R.drawable.ic_error)
-        .setTitle(getString(R.string.msg_done))
-        .setCancelable(true)
-        .setPositiveButton(
-            getString(R.string.msg_confirm_done)
-        ) { _, _ -> doneTask(task) }
-        .setNegativeButton(
-            getString(R.string.msg_reject_done)
-        ) { _, _ -> }
-        .show()
-}
-
-fun Fragment.initializePersianDatePicker(): PersianDatePickerDialog {
-    return PersianDatePickerDialog(requireContext())
-        .setPositiveButtonString(getString(R.string.label_confirm))
-        .setNegativeButton(getString(R.string.label_escape))
-        .setTodayButton(getString(R.string.label_today))
-        .setTodayButtonVisible(true)
-        .setMinYear(1396)//TODO use constant
-        .setMaxYear(PersianDatePickerDialog.THIS_YEAR + 1)
-        .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.color_on_surface))
-        .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
-        .setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.color_surface))
-        .setPickerBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.color_surface
-            )
-        )
-        .setTitleColor(ContextCompat.getColor(requireContext(), R.color.color_on_surface))
-        .setShowInBottomSheet(true)
-}
-
-fun PersianDatePickerDialog.setDatePickerClickHandler(
-    completeTextView: MyAutoCompleteTextView,
-    action: (PersianPickerDate?) -> Unit,
-    removeError: () -> Unit
-) {
-    setListener(object : PersianPickerListener {
-        override fun onDateSelected(persianPickerDate: PersianPickerDate?) {
-            removeError()
-            val label = persianPickerDate.getDatePickerDate()
-
-            completeTextView.setText(label, false)
-            action(persianPickerDate)
+inline fun <T> Flow<T>.collectOnFragment(fragment: Fragment, crossinline onCollect: (T) -> Unit) {
+    fragment.lifecycleScope.launchWhenStarted {
+        this@collectOnFragment.collectLatest {
+            onCollect(it)
         }
-
-        override fun onDismissed() {}
-    })
-
-    show()
+    }
 }
 
-fun PersianPickerDate?.getDatePickerDate(): String {
-    this?.let {
-        return String.format(
-            Locale.getDefault(),
-            "%d/%d/%d",
-            it.persianYear,
-            it.persianMonth,
-            it.persianDay
-        )
+inline fun <T> Flow<T>.collectOnActivity(
+    activity: AppCompatActivity,
+    crossinline onCollect: (T) -> Unit
+) {
+    activity.lifecycleScope.launchWhenStarted {
+        this@collectOnActivity.collectLatest {
+            onCollect(it)
+        }
     }
-    return ""
 }
 
-fun PersianDate?.getPersianDate(): String {
-    this?.let {
-        return String.format(
-            Locale.getDefault(),
-            "%d/%d/%d",
-            it.shYear,
-            it.shMonth,
-            it.shDay
-        )
-    }
-    return ""
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
 }
 
 fun TextView.isEmpty(textInputLayout: TextInputLayout): Boolean {
@@ -105,4 +54,43 @@ fun TextView.isEmpty(textInputLayout: TextInputLayout): Boolean {
         textInputLayout.error = null
     }
     return false
+}
+
+// Initial persian date picker and Set init time on deadline
+fun Fragment.initializePersianDatePicker(timeStamp: Long?, thisYear: Int): PersianDatePickerDialog {
+
+    // Set date settings
+    val datePicker = PersianDatePickerDialog(requireContext())
+        .setMinYear(1396)
+        .setMaxYear(thisYear + 1)
+    timeStamp?.let { datePicker.setInitDate(timeStamp) }
+
+    // Theming
+    datePicker.setActionTextColor(getColor(requireContext(), R.color.color_on_surface))
+        .setPickerBackgroundColor(getColor(requireContext(), R.color.color_surface))
+        .setBackgroundColor(getColor(requireContext(), R.color.color_surface))
+        .setTitleColor(getColor(requireContext(), R.color.color_on_surface))
+
+    // Set Ui
+    datePicker.setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+        .setPositiveButtonString(getString(R.string.label_confirm))
+        .setNegativeButton(getString(R.string.label_escape))
+        .setTodayButton(getString(R.string.label_today))
+        .setTodayButtonVisible(true)
+
+    return datePicker
+}
+
+fun getPersianDateString(y: Int, m: Int, d: Int): String {
+    return String.format(
+        Locale.getDefault(),
+        "%2d/%2d/%2d",
+        y,
+        m,
+        d
+    ).replace(" ", getZeroInDefaultLocale())
+}
+
+fun getColor(context: Context, id: Int): Int {
+    return ContextCompat.getColor(context, id)
 }

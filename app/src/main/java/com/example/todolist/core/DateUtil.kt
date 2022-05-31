@@ -2,6 +2,7 @@ package com.example.todolist.core
 
 import android.content.Context
 import com.example.todolist.R
+import com.example.todolist.util.twoDigit
 import saman.zamani.persiandate.PersianDate
 import java.util.*
 import javax.inject.Inject
@@ -32,9 +33,14 @@ class DateUtil @Inject constructor(
         )
     }
 
-    private fun getTodayDate(): PersianDate {
+    fun getTodayDate(): PersianDate {
         resetTime()
         return persianDate
+    }
+
+    fun getThisYear(): Int {
+        resetTime()
+        return persianDate.shYear
     }
 
     fun getRemainTime(deadLine: PersianDate, context: Context): String {
@@ -77,7 +83,7 @@ class DateUtil @Inject constructor(
             diffYear--
         }
 
-        diffDay += diffMonth * 30 + diffYear*365
+        diffDay += diffMonth * 30 + diffYear * 365
 
         return when {
             diffYear < 0 -> {
@@ -118,12 +124,4 @@ fun getPersianDate(
     return d.time + (hour * 3600000 + minute * 60000)
 }
 
-fun PersianDate.toDateWithSlash() =
-    "${(shYear).twoDigit()}/${shMonth.twoDigit()}/${shDay.twoDigit()}"
 
-//TODO FIX 0
-fun Int.twoDigit(): String {     // To handle one digit fields => 0:0 -> 00:00
-//    return String.format(Locale.US, "%2d", this).replace(" ", "0")
-//    return String.format(Locale.getDefault(), "%2d", this).replace(" ", "0")
-    return String.format(Locale.getDefault(), "%d", this)
-}

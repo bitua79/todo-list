@@ -1,4 +1,4 @@
-package com.example.todolist.core
+package com.example.todolist.core.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,15 +12,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.core.DateUtil
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
-import com.example.todolist.ui.TaskFragmentDirections
 import com.example.todolist.ui.TaskListAdapter
 import com.example.todolist.ui.TaskListFragmentDirections
 import com.example.todolist.ui.TaskViewModel
 import javax.inject.Inject
 
-abstract class BaseFragment<B : ViewDataBinding>(
+abstract class BaseTaskListFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
     private val taskType: TaskType
 ) : Fragment() {
@@ -59,9 +59,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     fun setupRecyclerview() {
         listAdapter = TaskListAdapter(
             dateUtil,
-            onItemClicked = { task -> editTask(task) },
-            onItemDone = { task -> doneTask(task) },
-            onItemRemove = { task -> removeTask(task) }
+            onItemClicked = { task -> goToEditTaskPage(task) }
         )
 
         initRecyclerView()
@@ -69,11 +67,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
         recyclerView.adapter = listAdapter
     }
 
-    fun addTask() {
+    fun goToAddTaskPage() {
         navController.navigate(TaskListFragmentDirections.actionToTaskFragment(null, taskType))
     }
 
-    private fun editTask(item: Task) {
+    private fun goToEditTaskPage(item: Task) {
         navController.navigate(
             TaskListFragmentDirections.actionToTaskFragment(
                 item,
@@ -82,7 +80,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
         )
     }
 
-    private fun doneTask(item: Task) {
+    fun addTask(item: Task){
+        viewModel.addTaskToList(item)
+    }
+
+    fun doneTask(item: Task, isDone: Boolean) {
         val newItem = Task(
             id = item.id,
             name = item.name,
@@ -90,13 +92,13 @@ abstract class BaseFragment<B : ViewDataBinding>(
             deadLine = item.deadLine,
             remainTime = item.remainTime,
             priority = item.priority,
-            isDone = true
+            isDone = isDone
         )
         viewModel.removeTaskFromList(item)
         viewModel.addTaskToList(newItem)
     }
 
-    private fun removeTask(item: Task){
+    fun removeTask(item: Task){
         viewModel.removeTaskFromList(item)
     }
 }
