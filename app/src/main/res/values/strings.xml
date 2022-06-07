@@ -26,15 +26,16 @@
     <string name="label_low_priority">اولویت پایین</string>
     <string name="label_is_done">انجام شده</string>
 
-    <string name="msg_done">آیا مطمئن هستید؟</string>
-    <string name="msg_confirm_done">بله</string>
-    <string name="msg_reject_done">خیر</string>
+    <string name="msg_done">تسک با موفقیت انجام شد!</string>
+    <string name="msg_remove">تسک با موفقیت حذف شد!</string>
+    <string name="label_undo">لغو</string>
 
     <string name="label_action_open_drawer">Open</string>
     <string name="label_action_close">Close</string>
 
     <string name="remain_time_day">%s روز و %s ساعت</string>
     <string name="remain_time_hour">%s ساعت و %s دقیقه</string>
+    <string name="remain_time_minute">%s دقیقه و %s ثانیه</string>
     <string name="deadline_is_passed">مهلت تمام شده است</string>
 
     <string name="msg_required">این فیلد نمی تواند خالی باشد</string>
