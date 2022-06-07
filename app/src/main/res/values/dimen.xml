@@ -25,6 +25,7 @@
     <dimen name="spacing_50x">200dp</dimen>
 
     <dimen name="divider_height">1dp</dimen>
+    <dimen name="margin_top_in_progress_bar">3dp</dimen>
 
     <dimen name="radius_small">4dp</dimen>
     <dimen name="radius_normal">8dp</dimen>

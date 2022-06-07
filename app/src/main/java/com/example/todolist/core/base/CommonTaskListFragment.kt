@@ -5,22 +5,26 @@ import android.os.CountDownTimer
 import android.util.TypedValue
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.view.View
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
+import com.example.todolist.databinding.CustomSnackbarBinding
 import com.example.todolist.databinding.FragmentTaskListBinding
 import com.example.todolist.ui.MainActivity
 import com.example.todolist.util.getColor
 import com.example.todolist.util.getListByType
+import com.example.todolist.util.invisible
+import com.example.todolist.util.visible
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import java.util.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -29,7 +33,25 @@ abstract class CommonTaskListFragment(
     private val type: TaskType
 ) : BaseTaskListFragment<FragmentTaskListBinding>(R.layout.fragment_task_list, type) {
 
+    private lateinit var snackbarBinding: CustomSnackbarBinding
+    private lateinit var snackbar: Snackbar
+
+    // region define colors
+    private var colorSurface = 0
+    private var colorOnSurface = 0
+    private var colorDoneItem = 0
+    private var colorRemoveItem = 0
+    private var colorWhite = 0
+    // endregion
+
+    // region initialize views
     override fun onInitDataBinding() {
+        colorSurface = getColor(requireContext(), R.color.color_surface)
+        colorOnSurface = getColor(requireContext(), R.color.color_on_surface)
+        colorDoneItem = getColor(requireContext(), R.color.color_done_item)
+        colorRemoveItem = getColor(requireContext(), R.color.color_remove_item)
+        colorWhite = getColor(requireContext(), R.color.white)
+
         setupRecyclerview()
         setFabAction()
         observeData()
@@ -42,7 +64,9 @@ abstract class CommonTaskListFragment(
         val itemTouchHelper = ItemTouchHelper(createTouchHelperCallback())
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
+    //endregion
 
+    // region recyclerview touch helper
     private fun createTouchHelperCallback(): ItemTouchHelper.SimpleCallback {
         return object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
@@ -60,10 +84,12 @@ abstract class CommonTaskListFragment(
                 // Left direction is to remove item after 5 sec
                 if (direction == ItemTouchHelper.LEFT) {
                     removeTask(item)
+                    setUpSnackBar(item, true)
 
                     // Right direction is to done item after 5 sec
                 } else if (direction == ItemTouchHelper.RIGHT) {
                     doneTask(item, true)
+                    setUpSnackBar(item, false)
                 }
             }
 
@@ -115,22 +141,104 @@ abstract class CommonTaskListFragment(
     }
 
     fun setupRecyclerViewSwipeDecorator(builder: RecyclerViewSwipeDecorator.Builder) {
-        builder.addSwipeRightBackgroundColor(
-            getColor(requireContext(),R.color.color_done_item)
-
-        ).addSwipeLeftBackgroundColor(
-           getColor(requireContext(),R.color.color_remove_item)
-        )
+        builder.addSwipeRightBackgroundColor(colorDoneItem)
+            .addSwipeLeftBackgroundColor(colorRemoveItem)
             .addCornerRadius(TypedValue.COMPLEX_UNIT_DIP, 16)
             .addPadding(COMPLEX_UNIT_PX, 4F, 0F, 8F)
             .addSwipeRightActionIcon(R.drawable.ic_done)
             .addSwipeLeftActionIcon(R.drawable.ic_delete)
-            .setActionIconTint(
-                getColor(requireContext(),R.color.white)
-            )
+            .setActionIconTint(colorWhite)
             .create()
             .decorate()
     }
+    //endregion
+
+    //region snackbar progress
+    fun setUpSnackBar(item: Task, isRemove: Boolean) {
+        snackbar = Snackbar.make(
+            recyclerView.rootView,
+            "",
+            Snackbar.LENGTH_INDEFINITE
+        ).setBackgroundTint(colorSurface)
+            .setActionTextColor(colorOnSurface)
+            .setTextColor(colorOnSurface)
+            .setAnchorView(R.id.bottom_navigation_view)
+
+        // Add custom snackbar to snackbar layout
+        val snackView: SnackbarLayout = snackbar.view as SnackbarLayout
+        snackView.addView(customSnackbarInflater(item, isRemove))
+
+        snackbar.show()
+    }
+
+    // Inflate custom snackbar and initialize views
+    private fun customSnackbarInflater(item: Task, isRemove: Boolean): View {
+        initSnackbarBinding(isRemove)
+
+        // Set a 5 second timer
+        val timer = object : CountDownTimer(5000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                progressOnTickHandler(millisUntilFinished)
+            }
+
+            override fun onFinish() {
+                progressOnFinishedHandler()
+            }
+        }.start()
+
+        // Undo removing item
+        snackbarBinding.tvUndo.setOnClickListener {
+            progressOnCancelHandler(timer, item, isRemove)
+        }
+        return snackbarBinding.root
+    }
+
+    private fun initSnackbarBinding(isRemove: Boolean) {
+        snackbarBinding = CustomSnackbarBinding.inflate(layoutInflater)
+
+        with(snackbarBinding) {
+            this.isRemove = isRemove
+            val rawRes = if (isRemove) R.raw.remove else R.raw.done
+            lottieDone.setAnimation(rawRes)
+        }
+    }
+
+    private fun progressOnTickHandler(millisUntilFinished: Long) {
+        millisUntilFinished.toInt()
+        val sec = millisUntilFinished.toInt() / 1000
+        with(snackbarBinding) {
+            tvTimer.text = String.format(java.util.Locale.getDefault(), "%d", sec)
+            pbTimer.progress = sec
+        }
+    }
+
+    private fun progressOnFinishedHandler() {
+        with(snackbarBinding) {
+            pbTimer.invisible()
+            tvTimer.invisible()
+
+            lifecycleScope.launch {
+                lottieDone.playAnimation()
+                lottieDone.visible()
+                val delay = lottieDone.duration
+                delay(delay)
+                lottieDone.pauseAnimation()
+                snackbar.dismiss()
+            }
+        }
+    }
+
+    private fun progressOnCancelHandler(timer: CountDownTimer, item: Task, isRemove: Boolean) {
+        timer.cancel()
+
+        // Undo action
+        if (isRemove) addTask(item)
+        else doneTask(item, false)
+
+        snackbar.dismiss()
+    }
+    //endregion
 
     private fun setFabAction() {
         val activity = requireActivity() as MainActivity
