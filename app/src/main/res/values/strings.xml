@@ -10,6 +10,7 @@
     <string name="title_deadline">تاریخ تحویل:</string>
     <string name="title_remain_time">زمان باقی مانده:</string>
     <string name="title_priority">اولویت:</string>
+    <string name="header_notification">به ددلاین تسک %s رسیدید!</string>
 
     <string name="label_confirm">تایید</string>
     <string name="label_escape">لغو</string>

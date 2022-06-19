@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import com.example.todolist.data.model.Task
 
 interface TaskRepository {
+    fun getTaskId(task: Task): Int
+
     fun getAllTasks(): LiveData<List<Task>>
 
     fun getTasksByQuery(query: String): LiveData<List<Task>>

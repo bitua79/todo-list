@@ -1,4 +1,4 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import com.example.todolist.core.DateUtil
-import com.example.todolist.core.getDate
 import com.example.todolist.data.model.Task
 import com.example.todolist.databinding.ItemTaskBinding
+import com.example.todolist.util.DateUtils
+import com.example.todolist.util.getDate
 
 class TaskListAdapter(
-    private val dateUtil: DateUtil,
+    private val dateUtil: DateUtils,
     private val onItemClicked: (t: Task) -> Unit = {}
 ) : ListAdapter<Task, TaskListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Task>() {

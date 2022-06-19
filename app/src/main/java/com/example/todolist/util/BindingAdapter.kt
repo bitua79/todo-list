@@ -1,8 +1,7 @@
-package com.example.todolist.core
+package com.example.todolist.util
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.google.android.material.textfield.TextInputEditText
 
 @BindingAdapter("getStringRes")
 fun getStringResource(view: TextView, id: Int) {

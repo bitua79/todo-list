@@ -1,4 +1,4 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.other
 
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -11,17 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todolist.R
-import com.example.todolist.core.DateUtil
-import com.example.todolist.core.getDate
-import com.example.todolist.core.getPersianDate
 import com.example.todolist.data.model.Priority
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.FragmentTaskBinding
-import com.example.todolist.util.getPersianDateString
-import com.example.todolist.util.initializePersianDatePicker
-import com.example.todolist.util.isEmpty
-import com.example.todolist.util.twoDigit
+import com.example.todolist.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate
@@ -44,16 +38,13 @@ class TaskFragment : Fragment() {
     private val args by navArgs<TaskFragmentArgs>()
     private var isEditPage = false
 
-    private var minute: Int = 59
-    private var hour: Int = 23
-    private var day: Int = 0
-    private var month: Int = 0
-    private var year: Int = 0
+    private lateinit var deadline: PersianDate
+    private lateinit var today: PersianDate
 
     lateinit var priority: Priority
 
     @Inject
-    lateinit var dateUtil: DateUtil
+    lateinit var dateUtil: DateUtils
 
     //endregion
 
@@ -83,11 +74,11 @@ class TaskFragment : Fragment() {
         setPriorityDropDown()
 
         with(binding) {
+            today = dateUtil.getTodayDate()
+            deadline = today
 
             args.task?.let {
                 val time = getDate(it.deadLine)
-                hour = time.hour
-                minute = time.minute
                 initValues(time)
             }
 
@@ -110,10 +101,22 @@ class TaskFragment : Fragment() {
             // Invoke edit or addition
             btn.setOnClickListener {
                 if (checkValidation()) {
-                    if (this@TaskFragment.isEditPage)
-                        listViewModel.editTaskFromList(getTaskFromInput())
-                    else
-                        listViewModel.addTaskToList(getTaskFromInput())
+                    if (this@TaskFragment.isEditPage) {
+                        args.task?.let { task ->
+                            val newTask = getTaskFromInput()
+                            listViewModel.editTaskFromList(newTask)
+                            val taskId = listViewModel.getTaskId(task)
+                            cancelAlarm(taskId, requireContext())
+
+                            val newTaskId = listViewModel.getTaskId(newTask)
+                            startAlarm(newTaskId, requireContext(), newTask)
+                        }
+                    } else {
+                        val newTask = getTaskFromInput()
+                        listViewModel.addTaskToList(newTask)
+                        val taskId = listViewModel.getTaskId(newTask)
+                        startAlarm(taskId, requireContext(), newTask)
+                    }
 
                     findNavController().navigateUp()
                 }
@@ -124,6 +127,11 @@ class TaskFragment : Fragment() {
     // Initial fields with task (if it is edit page)
     private fun initValues(time: PersianDate) {
         with(time) {
+            deadline.shYear = shYear
+            deadline.shMonth = shMonth
+            deadline.shDay = shDay
+            deadline.hour = hour
+            deadline.minute = minute
             setTimeText(hour, minute)
             setDateText(shYear, shMonth, shDay)
         }
@@ -158,6 +166,8 @@ class TaskFragment : Fragment() {
                 setAdapter(priorityArrayAdapter)
 
                 setOnItemClickListener { adapterView, _, position, _ ->
+                    binding.tilPriority.isErrorEnabled = false
+                    binding.tilPriority.error = null
                     val name = adapterView.getItemAtPosition(position).toString()
                     priority = Priority.enumValueOfTitle(name, requireContext())
                 }
@@ -181,9 +191,9 @@ class TaskFragment : Fragment() {
                             tvDatePicker.setText(label, false)
 
                             // Set variables
-                            year = it.persianYear
-                            month = it.persianMonth
-                            day = it.persianDay
+                            deadline.shYear = it.persianYear
+                            deadline.shMonth = it.persianMonth
+                            deadline.shDay = it.persianDay
                         }
 
                     }
@@ -202,16 +212,17 @@ class TaskFragment : Fragment() {
         // Create a timeClickHandler
         val timePickerClickHandler: TimePickerDialog.OnTimeSetListener =
             TimePickerDialog.OnTimeSetListener { _, h, m ->
-                hour = h
-                minute = m
+                deadline.hour = h
+                deadline.minute = m
                 setTimeText(h, m)
             }
 
+        // You can set deadline for at least one minute later
         timePicker = TimePickerDialog(
             requireContext(),
             timePickerClickHandler,
-            hour,
-            minute,
+            deadline.hour,
+            deadline.minute + 1,
             true
         )
         timePicker.show()
@@ -241,7 +252,14 @@ class TaskFragment : Fragment() {
                 id = args.task?.id ?: 0,
                 name = etName.text.toString(),
                 subject = etSubject.text.toString(),
-                deadLine = getPersianDate(year, month, day, hour, minute, 0),
+                deadLine = getPersianDate(
+                    deadline.shYear,
+                    deadline.shMonth,
+                    deadline.shDay,
+                    deadline.hour,
+                    deadline.minute,
+                    dateUtil.getTodayDate().second
+                ),
                 remainTime = null,
                 priority = Priority.enumValueOfTitle(
                     tvPriority.text.toString(),

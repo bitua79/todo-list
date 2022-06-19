@@ -19,33 +19,33 @@
 
     <fragment
         android:id="@+id/dailyTaskListFragment"
-        android:name="com.example.todolist.ui.DailyTaskListFragment"
+        android:name="com.example.todolist.ui.list.DailyTaskListFragment"
         tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/essentialTaskListFragment"
-        android:name="com.example.todolist.ui.EssentialTaskListFragment"
+        android:name="com.example.todolist.ui.list.EssentialTaskListFragment"
         tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/taskListFragment"
-        android:name="com.example.todolist.ui.TaskListFragment"
+        android:name="com.example.todolist.ui.list.TaskListFragment"
         tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/importantTaskListFragment"
-        android:name="com.example.todolist.ui.ImportantTaskListFragment"
+        android:name="com.example.todolist.ui.list.ImportantTaskListFragment"
         tools:layout="@layout/fragment_task_list" />
 
     <fragment
         android:id="@+id/doneTaskListFragment"
-        android:name="com.example.todolist.ui.DoneTaskListFragment"
+        android:name="com.example.todolist.ui.list.DoneTaskListFragment"
         tools:layout="@layout/fragment_task_list" >
     </fragment>
 
     <fragment
         android:id="@+id/taskFragment"
-        android:name="com.example.todolist.ui.TaskFragment"
+        android:name="com.example.todolist.ui.other.TaskFragment"
         tools:layout="@layout/fragment_task">
         <argument
             android:name="task"
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.todolist.ui.SearchFragment"
+        android:name="com.example.todolist.ui.other.SearchFragment"
         tools:layout="@layout/fragment_search"/>
 
 </navigation>

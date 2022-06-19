@@ -1,4 +1,4 @@
-package com.example.todolist.core
+package com.example.todolist.util
 
 import android.content.Context
 import com.example.todolist.R
@@ -7,7 +7,7 @@ import saman.zamani.persiandate.PersianDate
 import java.util.*
 import javax.inject.Inject
 
-class DateUtil @Inject constructor(
+class DateUtils @Inject constructor(
     private val persianDate: PersianDate,
     private val calendar: Calendar
 ) {
@@ -89,6 +89,9 @@ class DateUtil @Inject constructor(
             diffYear < 0 -> {
                 context.getString(R.string.deadline_is_passed)
             }
+            diffHour == 0 -> {
+                context.getString(R.string.remain_time_minute, diffMin.twoDigit(), diffSec.twoDigit())
+            }
             diffDay == 0 -> {
                 context.getString(R.string.remain_time_hour, diffHour.twoDigit(), diffMin.twoDigit())
 
@@ -104,6 +107,12 @@ class DateUtil @Inject constructor(
 
 fun getDate(time: Long) = PersianDate(time)
 
+fun getCalendar(timeMillis: Long): Calendar {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = timeMillis
+    return calendar
+}
+
 fun getPersianDate(
     year: Int,
     month: Int,
@@ -112,7 +121,7 @@ fun getPersianDate(
     minute: Int,
     second: Int
 ): Long {
-    val d = PersianDate().initJalaliDate(
+    val persianDate = PersianDate().initJalaliDate(
         year,
         month,
         day,
@@ -121,7 +130,7 @@ fun getPersianDate(
         second,
     )
     // add hour ad minute time millis
-    return d.time + (hour * 3600000 + minute * 60000)
+    return persianDate.time + (hour * 3600000 + minute * 60000 + second * 1000)
 }
 
 
