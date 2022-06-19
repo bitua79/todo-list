@@ -1,4 +1,4 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.list
 
 import com.example.todolist.core.base.CommonTaskListFragment
 import com.example.todolist.data.model.Priority
@@ -7,4 +7,4 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class EssentialTaskListFragment : CommonTaskListFragment(priority = Priority.High, type = TaskType.Essential)
+class ImportantTaskListFragment : CommonTaskListFragment(priority = Priority.Medium, TaskType.Important)

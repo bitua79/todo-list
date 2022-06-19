@@ -1,9 +1,8 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -26,6 +25,7 @@ import com.example.todolist.core.settings.Language
 import com.example.todolist.core.settings.LocaleHelper
 import com.example.todolist.core.settings.Theme
 import com.example.todolist.databinding.ActivityMainBinding
+import com.example.todolist.ui.list.TaskListFragmentDirections
 import com.example.todolist.util.collectOnActivity
 import com.example.todolist.util.gone
 import com.example.todolist.util.visible

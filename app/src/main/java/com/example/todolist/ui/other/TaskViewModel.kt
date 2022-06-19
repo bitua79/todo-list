@@ -1,4 +1,4 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.other
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +17,7 @@ class TaskViewModel @Inject constructor(
     private val addTask: AddTask,
     private val editTask: EditTask,
     private val removeTask: RemoveTask,
+    private val getId: GetTaskId,
     private val getTasksByQuery: GetTasksByQuery
 ) : BaseViewModel() {
     private val query: MutableLiveData<String> = MutableLiveData()
@@ -44,4 +45,9 @@ class TaskViewModel @Inject constructor(
     fun removeTaskFromList(t: Task) {
         removeTask(t)
     }
+
+    fun getTaskId(task: Task): Int {
+        return getId(task)
+    }
+
 }

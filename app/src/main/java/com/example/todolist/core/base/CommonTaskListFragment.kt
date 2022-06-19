@@ -14,7 +14,7 @@ import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
 import com.example.todolist.databinding.CustomSnackbarBinding
 import com.example.todolist.databinding.FragmentTaskListBinding
-import com.example.todolist.ui.MainActivity
+import com.example.todolist.ui.main.MainActivity
 import com.example.todolist.util.getColor
 import com.example.todolist.util.getListByType
 import com.example.todolist.util.invisible

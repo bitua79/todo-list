@@ -1,4 +1,4 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.other
 
 import androidx.core.widget.doAfterTextChanged
 import com.example.todolist.R

@@ -9,6 +9,7 @@
             name="task"
             type="com.example.todolist.data.model.Task" />
     </data>
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_main"
             android:layout_width="match_parent"
@@ -90,5 +91,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
-<!--    </com.zerobranch.layout.SwipeLayout>-->
 </layout>

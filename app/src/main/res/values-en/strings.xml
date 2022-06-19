@@ -10,6 +10,7 @@
     <string name="title_deadline">deadline:</string>
     <string name="title_remain_time">remain time:</string>
     <string name="title_priority">priority:</string>
+    <string name="header_notification">you reached %s deadline!</string>
 
     <string name="label_confirm">confirm</string>
     <string name="label_escape">escape</string>

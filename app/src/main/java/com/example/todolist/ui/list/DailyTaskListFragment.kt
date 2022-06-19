@@ -1,4 +1,4 @@
-package com.example.todolist.ui
+package com.example.todolist.ui.list
 
 import com.example.todolist.core.base.CommonTaskListFragment
 import com.example.todolist.data.model.Priority

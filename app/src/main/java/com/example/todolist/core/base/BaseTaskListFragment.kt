@@ -12,12 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.core.DateUtil
 import com.example.todolist.data.model.Task
 import com.example.todolist.data.model.TaskType
-import com.example.todolist.ui.TaskListAdapter
-import com.example.todolist.ui.TaskListFragmentDirections
-import com.example.todolist.ui.TaskViewModel
+import com.example.todolist.ui.list.TaskListAdapter
+import com.example.todolist.ui.list.TaskListFragmentDirections
+import com.example.todolist.ui.other.TaskViewModel
+import com.example.todolist.util.DateUtils
 import javax.inject.Inject
 
 abstract class BaseTaskListFragment<B : ViewDataBinding>(
@@ -29,7 +29,7 @@ abstract class BaseTaskListFragment<B : ViewDataBinding>(
     lateinit var navController: NavController
 
     @Inject
-    lateinit var dateUtil: DateUtil
+    lateinit var dateUtil: DateUtils
 
     lateinit var listAdapter: TaskListAdapter
     lateinit var recyclerView: RecyclerView
@@ -52,6 +52,7 @@ abstract class BaseTaskListFragment<B : ViewDataBinding>(
         setupRecyclerview()
     }
 
+    //region initialize an navigation
     abstract fun onInitDataBinding()
 
     abstract fun initRecyclerView()
@@ -79,8 +80,10 @@ abstract class BaseTaskListFragment<B : ViewDataBinding>(
             )
         )
     }
+    //endregion
 
-    fun addTask(item: Task){
+    // region task actions
+    fun addTask(item: Task) {
         viewModel.addTaskToList(item)
     }
 
@@ -98,7 +101,8 @@ abstract class BaseTaskListFragment<B : ViewDataBinding>(
         viewModel.addTaskToList(newItem)
     }
 
-    fun removeTask(item: Task){
+    fun removeTask(item: Task) {
         viewModel.removeTaskFromList(item)
     }
+    // endregion
 }

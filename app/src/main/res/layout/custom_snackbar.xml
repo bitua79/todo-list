@@ -43,6 +43,7 @@
             android:layout_width="0dp"
             android:visibility="invisible"
             android:layout_height="@dimen/spacing_7x"
+
             app:layout_constraintBottom_toBottomOf="@id/pb_timer"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="@id/pb_timer"
@@ -60,7 +61,6 @@
             app:layout_constraintBottom_toBottomOf="@id/pb_timer"
             app:layout_constraintEnd_toEndOf="@id/pb_timer"
             app:layout_constraintStart_toStartOf="@id/pb_timer"
-            android:textAppearance="@style/TextAppearance.MyTheme.Caption"
             app:layout_constraintTop_toTopOf="@id/pb_timer" />
 
         <com.google.android.material.textview.MaterialTextView

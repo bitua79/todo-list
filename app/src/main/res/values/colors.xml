@@ -22,7 +22,7 @@
     <color name="color_remove_item">@color/orange_600</color>
     <color name="color_done_item">@color/teal_600</color>
 
-    <color name="color_edit_text_box_border">@color/grey_400</color>
+    <color name="color_edit_text_box_border">@color/grey_450</color>
     <color name="color_edit_text_box_background">@color/white</color>
 
 </resources>
